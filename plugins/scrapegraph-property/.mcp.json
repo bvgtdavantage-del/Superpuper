@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "scrapegraph-property": {
+      "command": "node",
+      "args": ["${CODEX_PLUGIN_ROOT}/mcp-server/dist/index.js"],
+      "env": {
+        "SGAI_API_KEY": "${SGAI_API_KEY}",
+        "SGAI_PROPERTY_DEFAULT_PORTAL": "bayut"
+      },
+      "note": "Bundled stdio server. Run `npm install && npm run build` in mcp-server/ first — dist/ is not committed. If your client does not expand ${CODEX_PLUGIN_ROOT}, replace the arg with the absolute path to mcp-server/dist/index.js."
+    }
+  }
+}
