@@ -24,20 +24,33 @@ ScrapeGraphAI's search service and queries across sites instead of one portal.
 
 ## Setup
 
-The server is bundled as source; `dist/` is not committed, so build it once:
+The server is bundled as source; `dist/` is not committed, so build it once.
+`install.sh` does the whole setup — Node version check, install, build, a
+`600`-mode `.env`, and a printed client config block:
+
+```bash
+cd plugins/scrapegraph-property/mcp-server
+./install.sh sgai-yourkey
+```
+
+Pass the key through the environment instead to keep it out of your shell
+history:
+
+```bash
+SGAI_API_KEY=sgai-yourkey ./install.sh
+```
+
+Or do it by hand:
 
 ```bash
 cd plugins/scrapegraph-property/mcp-server
 npm install
 npm run build
 node dist/index.js --version
-```
-
-Then export a key from the [ScrapeGraphAI dashboard](https://scrapegraphai.com):
-
-```bash
 export SGAI_API_KEY=your-key-here
 ```
+
+Get a key from the [ScrapeGraphAI dashboard](https://scrapegraphai.com).
 
 `.mcp.json` launches the built entry point at
 `${CODEX_PLUGIN_ROOT}/mcp-server/dist/index.js`. If your MCP client does not
@@ -50,6 +63,9 @@ expand `${CODEX_PLUGIN_ROOT}`, replace that argument with an absolute path.
 | `SGAI_API_KEY` | yes | — | Server refuses to start without it |
 | `SGAI_PROPERTY_DEFAULT_PORTAL` | no | `bayut` | `bayut`, `propertyfinder`, `dubizzle` or `web` |
 | `SGAI_PROPERTY_TIMEOUT_MS` | no | `60000` | Per-request fetch timeout, 5000–300000 |
+
+The server reads `.env` from `mcp-server/` when present. Real environment
+variables take precedence, so the `env` block in `.mcp.json` always wins.
 
 ## A note on portal URLs
 
