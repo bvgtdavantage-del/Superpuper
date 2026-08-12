@@ -1,4 +1,18 @@
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { PORTAL_IDS, type PortalId } from "./portals.js";
+
+// Load the package's own .env when present, so a server launched directly (or
+// by a client that passes no env block) still finds its key. Real environment
+// variables win over the file.
+export function loadEnvFile(): void {
+  const envPath = join(dirname(fileURLToPath(import.meta.url)), "..", ".env");
+  try {
+    process.loadEnvFile(envPath);
+  } catch {
+    // No .env, or it is unreadable. Environment variables alone are fine.
+  }
+}
 
 export interface ServerConfig {
   apiKey: string;

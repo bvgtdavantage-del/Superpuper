@@ -2,7 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createPropertyClient } from "./client.js";
-import { loadConfig } from "./config.js";
+import { loadConfig, loadEnvFile } from "./config.js";
 import { registerTools } from "./tools.js";
 import { SERVER_NAME, SERVER_VERSION } from "./version.js";
 
@@ -31,6 +31,7 @@ async function main(argv: string[]): Promise<number> {
     return 0;
   }
 
+  loadEnvFile();
   const config = loadConfig();
   const server = new McpServer({ name: SERVER_NAME, version: SERVER_VERSION });
   registerTools(server, createPropertyClient(config), config);
