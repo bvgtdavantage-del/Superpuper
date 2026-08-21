@@ -1,0 +1,44 @@
+{
+  "name": "scrapegraph-property",
+  "version": "0.1.0",
+  "description": "Search live Dubai property listings, pull full listing details, and research community-level market intel through a ScrapeGraphAI-backed MCP server.",
+  "author": {
+    "name": "Constant Estate",
+    "url": "https://scrapegraphai.com"
+  },
+  "homepage": "https://scrapegraphai.com",
+  "repository": "https://github.com/bvgtdavantage-del/Superpuper",
+  "license": "MIT",
+  "keywords": [
+    "real-estate",
+    "property",
+    "dubai",
+    "scraping",
+    "scrapegraphai",
+    "listings",
+    "market-research",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "ScrapeGraph Property",
+    "shortDescription": "Live Dubai listing search and area intel via ScrapeGraphAI",
+    "longDescription": "Query live Dubai sale and rental listings from Bayut, Property Finder and Dubizzle as structured records, expand any listing into full detail including developer, completion status and RERA permit, and research community-level market intel such as price per sqft, rental yield and transaction trends. Backed by the ScrapeGraphAI managed API, which handles JS rendering, stealth fetching and proxies.",
+    "developerName": "Constant Estate",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "websiteURL": "https://scrapegraphai.com",
+    "privacyPolicyURL": "https://scrapegraphai.com/privacy",
+    "termsOfServiceURL": "https://scrapegraphai.com/terms",
+    "defaultPrompt": [
+      "Find 2-bed apartments for sale in Dubai Marina under AED 3M and summarise the range.",
+      "Pull the full details for this Bayut listing and flag anything a buyer should check.",
+      "Compare rental yields in JVC and Business Bay for a one-bedroom investment."
+    ],
+    "brandColor": "#1B2A4A"
+  }
+}
