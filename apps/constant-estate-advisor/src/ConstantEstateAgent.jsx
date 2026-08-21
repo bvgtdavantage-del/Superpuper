@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useId } from "react";
 
 // ————————————————————————————————————————————————
 // CONSTANT ESTATE — AI Property Advisor
@@ -10,45 +10,54 @@ const MODES = {
     label: "Advisor",
     ru: "Советник",
     hint: "Dubai market questions, buyer/seller guidance, area intel.",
+    ruHint: "Вопросы по рынку Дубая, сопровождение покупателя и продавца, аналитика районов.",
     system: `You are the senior property advisor of Constant Estate, a RERA-licensed Dubai brokerage operated under Constant Private, a Dubai family office focused on distressed and off-market real estate. Brand voice: Spare. Exact. Contrarian. Cold. No exclamation marks, no hype, no emojis, no filler. Short declarative sentences. You know the Dubai market deeply: DLD/Trakheesi mechanics, Oqood, freehold vs leasehold zones, service charges, transfer fees (4% DLD + trustee), Golden Visa thresholds (AED 2M), off-plan payment plans, RERA escrow, Ejari, RDC. Areas: Palm Jumeirah, Emirates Hills, Dubai Hills, JBR, Downtown, Business Bay, Dubai Islands, Jumeirah Bay, District One, Tilal Al Ghaf, DAMAC Lagoons, JVC, Marina. When the client writes in Russian, answer in Russian with the same register. Distinguish what documents show from what they imply. Never state an inferred status as fact. Give numbers when you have them; say "verify against DLD" when you don't. End with one precise next step, not a list of options.`,
   },
   listing: {
     label: "Listing Writer",
     ru: "Листинг",
     hint: "Paste raw property details → institutional-grade listing copy.",
+    ruHint: "Вставьте данные объекта → листинг институционального уровня.",
     system: `You write property listings for Constant Estate, Dubai. Voice: Spare, Exact, Contrarian, Cold — institutional, never portal-generic. Banned words: stunning, luxurious, breathtaking, dream home, oasis, prestigious, exclusive opportunity, don't miss. Structure every listing: 1) a one-line cold open that states the single strongest fact of the asset, 2) a tight body — layout, view, condition, building, service charge if known, 3) a closing line on position or scarcity, 4) a spec block (BUA, plot, beds/baths, parking, title, price, permit no. placeholder). If details are missing, produce the listing anyway and append a short "MISSING" line listing exactly what to supply. If asked in Russian, deliver Russian. Output the listing only — no commentary.`,
   },
   qualify: {
     label: "Lead Qualifier",
     ru: "Квалификация",
     hint: "Paste an inquiry or chat → verdict, profile, and reply draft.",
+    ruHint: "Вставьте запрос или переписку → вердикт, профиль и черновик ответа.",
     system: `You qualify inbound leads for Constant Estate, Dubai. Given a message, chat excerpt, or description of a prospect, return exactly this structure: VERDICT — one of: PROCEED / PROBE / PARK, with one sentence why. PROFILE — inferred budget band, motive (end-use, investment, visa, relocation, flip), urgency, and cash vs mortgage, each flagged as stated or inferred. RISK — one line: anything off (unrealistic ask, broker fishing, sanctions-exposure signals, time-waster patterns). REPLY — a deployable message in the prospect's language, natural spoken tone, no AI phrasing, designed to advance or filter in one exchange. Never state an inference as fact. Be economical.`,
   },
   memo: {
     label: "Deal Memo",
     ru: "Меморандум",
     hint: "Asset details → concise investment memo for a principal.",
+    ruHint: "Данные актива → сжатый инвестиционный меморандум для принципала.",
     system: `You write one-screen deal memos for Constant Private, a Dubai family office (distressed and off-market real estate, hospitality). Audience: a principal who decides in ninety seconds. Structure: ASSET (what it is, title, zone) · ASK vs BASIS (price, implied psf, comparable band) · ANGLE (why this deal exists — distress, mispricing, structure) · YIELD/EXIT (rent or resale math, hold period) · RISKS (max three, real ones) · VERDICT (Pursue / Pass / Pursue at X). Numbers over adjectives. Mark every unverified figure "(unverified)". If the input lacks numbers, build the frame and state precisely what is needed to complete it. Russian input → Russian memo.`,
   },
   negotiate: {
     label: "Negotiation",
     ru: "Переговоры",
     hint: "Describe the standoff → message drafts with implied leverage.",
+    ruHint: "Опишите тупик в переговорах → черновики сообщений со скрытым рычагом.",
     system: `You draft negotiation messages for a Dubai real estate principal. Doctrine: calm control, implied leverage over explicit threats, economy of words. Never bluff with specifics you don't have; leverage is implied through posture, timing, and readiness to walk. Given a situation, produce 2 labeled drafts with different strategic postures (e.g., "Anchor and hold" vs "Open the door"), each deployable verbatim in the counterparty's language. One line under each label stating what it trades off. No strategic essays unless asked.`,
   },
 };
 
 // ————— Original Constant Private mark: dark circle, gold-gradient wordmark —————
-const Monogram = ({ size = 64 }) => (
-  <svg width={size} height={size} viewBox="0 0 120 120" aria-label="Constant Private">
+const Monogram = ({ size = 64 }) => {
+  // The mark renders more than once per page; a fixed gradient id would
+  // collide (and resolve into a display:none subtree on mobile).
+  const gid = "cpGold" + useId().replace(/:/g, "");
+  return (
+  <svg width={size} height={size} viewBox="0 0 120 120" role="img" aria-label="Constant Private">
     <defs>
-      <linearGradient id="cpGold" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#E8CE96" />
         <stop offset="45%" stopColor="#C9A45D" />
         <stop offset="100%" stopColor="#9C7A3C" />
       </linearGradient>
     </defs>
-    <circle cx="60" cy="60" r="58" fill="#071522" stroke="url(#cpGold)" strokeWidth="1.2" />
+    <circle cx="60" cy="60" r="58" fill="#071522" stroke={`url(#${gid})`} strokeWidth="1.2" />
     <circle cx="60" cy="60" r="52.5" fill="none" stroke="#C9A45D" strokeWidth="0.4" opacity="0.45" />
     <text
       x="60"
@@ -58,7 +67,7 @@ const Monogram = ({ size = 64 }) => (
       fontWeight="600"
       fontSize="15.5"
       letterSpacing="2.2"
-      fill="url(#cpGold)"
+      fill={`url(#${gid})`}
     >
       CONSTANT
     </text>
@@ -86,7 +95,8 @@ const Monogram = ({ size = 64 }) => (
       FAMILY OFFICE
     </text>
   </svg>
-);
+  );
+};
 
 const T = {
   en: {
@@ -98,6 +108,8 @@ const T = {
     empty: "The desk is open.",
     emptySub: "Select a function. State the matter. No preamble required.",
     error: "Connection failed. Send again.",
+    refused: "Declined. Rephrase the matter.",
+    truncated: "Reply truncated. Ask to continue.",
     clear: "New matter",
   },
   ru: {
@@ -109,6 +121,8 @@ const T = {
     empty: "Стол открыт.",
     emptySub: "Выберите функцию. Изложите суть. Без предисловий.",
     error: "Сбой связи. Отправьте снова.",
+    refused: "Отклонено. Переформулируйте вопрос.",
+    truncated: "Ответ усечён. Попросите продолжить.",
     clear: "Новое дело",
   },
 };
@@ -136,6 +150,10 @@ export default function ConstantEstateAgent() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(false);
   const scrollRef = useRef(null);
+  // Guards against a response landing after the desk was cleared or the mode
+  // switched: a reply may only commit while its request id is still current.
+  const reqRef = useRef(0);
+  const abortRef = useRef(null);
   const t = T[lang];
 
   useEffect(() => {
@@ -143,11 +161,22 @@ export default function ConstantEstateAgent() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, busy]);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
+  useEffect(() => () => abortRef.current?.abort(), []);
+
   const send = async () => {
     const text = input.trim();
     if (!text || busy) return;
     setErr(false);
-    const next = [...messages, { role: "user", content: text }];
+    const reqId = ++reqRef.current;
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const timeout = setTimeout(() => controller.abort(), 60000);
+    const prev = messages;
+    const next = [...prev, { role: "user", content: text }];
     setMessages(next);
     setInput("");
     setBusy(true);
@@ -155,42 +184,64 @@ export default function ConstantEstateAgent() {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: API_HEADERS,
+        signal: controller.signal,
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
-          max_tokens: 1000,
+          max_tokens: 4096,
           system: MODES[mode].system,
           messages: next.map((m) => ({ role: m.role, content: m.content })),
         }),
       });
-      const data = await res.json();
-      const reply = (data.content || [])
+      const data = await res.json().catch(() => null);
+      if (reqRef.current !== reqId) return;
+      if (!res.ok) {
+        setMessages(prev);
+        setInput(text);
+        setErr(data?.error?.message || t.error);
+        return;
+      }
+      if (data?.stop_reason === "refusal") {
+        setMessages(prev);
+        setInput(text);
+        setErr(t.refused);
+        return;
+      }
+      const reply = (data?.content || [])
         .filter((b) => b.type === "text")
         .map((b) => b.text)
         .join("\n")
         .trim();
       if (!reply) throw new Error("empty");
       setMessages([...next, { role: "assistant", content: reply }]);
+      if (data.stop_reason === "max_tokens") setErr(t.truncated);
     } catch (e) {
-      setErr(true);
+      if (reqRef.current !== reqId) return;
+      setMessages(prev);
+      setInput(text);
+      setErr(t.error);
     } finally {
-      setBusy(false);
+      clearTimeout(timeout);
+      if (reqRef.current === reqId) setBusy(false);
     }
   };
 
   const switchMode = (k) => {
+    reqRef.current++;
+    abortRef.current?.abort();
     setMode(k);
     setMessages([]);
     setErr(false);
+    setBusy(false);
   };
 
   return (
-    <div style={S.root}>
+    <div style={S.root} className="ce-root">
       <style>{CSS}</style>
 
       {/* ————— Sidebar ————— */}
       <aside style={S.side} className="ce-side">
         <div>
-          <div style={S.brandBlock}>
+          <div style={S.brandBlock} className="ce-brandblock">
             <div style={{ marginBottom: 16 }}>
               <Monogram size={78} />
             </div>
@@ -198,12 +249,13 @@ export default function ConstantEstateAgent() {
             <div style={S.brandSub}>{t.sub}</div>
           </div>
 
-          <nav style={S.nav}>
+          <nav style={S.nav} className="ce-nav">
             {Object.entries(MODES).map(([k, m]) => (
               <button
                 key={k}
                 onClick={() => switchMode(k)}
                 className="ce-mode"
+                aria-pressed={mode === k}
                 style={{
                   ...S.modeBtn,
                   ...(mode === k ? S.modeBtnActive : {}),
@@ -218,13 +270,14 @@ export default function ConstantEstateAgent() {
           </nav>
         </div>
 
-        <div style={S.sideFoot}>
+        <div style={S.sideFoot} className="ce-sidefoot">
           <div style={S.langRow}>
             {["en", "ru"].map((l) => (
               <button
                 key={l}
                 onClick={() => setLang(l)}
                 className="ce-lang"
+                aria-pressed={lang === l}
                 style={{
                   ...S.langBtn,
                   ...(lang === l ? S.langBtnActive : {}),
@@ -234,7 +287,7 @@ export default function ConstantEstateAgent() {
               </button>
             ))}
           </div>
-          <div style={S.motto}>{t.motto}</div>
+          <div style={S.motto} className="ce-motto">{t.motto}</div>
         </div>
       </aside>
 
@@ -245,7 +298,9 @@ export default function ConstantEstateAgent() {
             <div style={S.headMode}>
               {lang === "ru" ? MODES[mode].ru : MODES[mode].label}
             </div>
-            <div style={S.headHint}>{MODES[mode].hint}</div>
+            <div style={S.headHint}>
+              {lang === "ru" ? MODES[mode].ruHint : MODES[mode].hint}
+            </div>
           </div>
           {messages.length > 0 && (
             <button
@@ -258,7 +313,13 @@ export default function ConstantEstateAgent() {
           )}
         </header>
 
-        <div ref={scrollRef} style={S.thread} className="ce-thread">
+        <div
+          ref={scrollRef}
+          style={S.thread}
+          className="ce-thread"
+          role="log"
+          aria-live="polite"
+        >
           {messages.length === 0 && !busy && (
             <div style={S.empty}>
               <div style={{ marginBottom: 24 }}>
@@ -285,12 +346,16 @@ export default function ConstantEstateAgent() {
           ))}
           {busy && (
             <div style={S.rowAsst}>
-              <div style={{ ...S.bubAsst, ...S.thinking }}>
+              <div style={{ ...S.bubAsst, ...S.thinking }} role="status">
                 <span className="ce-pulse">{t.thinking}</span>
               </div>
             </div>
           )}
-          {err && <div style={S.err}>{t.error}</div>}
+          {err && (
+            <div style={S.err} role="alert">
+              {err}
+            </div>
+          )}
         </div>
 
         <div style={S.composer}>
@@ -299,11 +364,13 @@ export default function ConstantEstateAgent() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
+                if (e.nativeEvent.isComposing) return;
                 e.preventDefault();
                 send();
               }
             }}
             placeholder={t.placeholder}
+            aria-label={t.placeholder}
             rows={2}
             style={S.textarea}
             className="ce-ta"
@@ -312,6 +379,7 @@ export default function ConstantEstateAgent() {
             onClick={send}
             disabled={busy || !input.trim()}
             className="ce-send"
+            aria-label={lang === "ru" ? "Отправить" : "Send"}
             style={{
               ...S.sendBtn,
               opacity: busy || !input.trim() ? 0.35 : 1,
@@ -548,9 +616,26 @@ const CSS = `
 .ce-ta:focus { border-color: ${GOLD}88 !important; }
 .ce-clear:hover, .ce-lang:hover { border-color: ${GOLD}; color: ${GOLD}; }
 .ce-pulse { animation: cePulse 1.4s ease-in-out infinite; }
-@keyframes cePulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+@keyframes cePulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .ce-pulse { animation: none; } }
 @media (max-width: 700px) {
-  .ce-side { display: none !important; }
+  .ce-root { flex-direction: column; }
+  .ce-side {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px;
+    padding: 10px 14px !important;
+    border-right: none !important;
+    border-bottom: 1px solid ${GOLD}33;
+  }
+  .ce-side > div:first-child { display: flex; align-items: center; flex: 1; min-width: 0; }
+  .ce-brandblock { display: none !important; }
+  .ce-nav { flex-direction: row !important; overflow-x: auto; flex: 1; min-width: 0; }
+  .ce-mode { padding: 8px 10px !important; border-left: none !important; white-space: nowrap; flex: none; }
+  .ce-sidefoot { flex-direction: row !important; align-items: center; gap: 8px !important; }
+  .ce-motto { display: none !important; }
 }
 `;
