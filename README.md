@@ -16,3 +16,28 @@ Highlighted richer examples in this repo include:
 - `plugins/build-web-apps` for deployment, UI, payments, and database workflows
 - `plugins/expo` for Expo and React Native apps, SDK upgrades, EAS workflows, and Codex Run actions
 - `plugins/netlify`, `plugins/remotion`, and `plugins/google-slides` for additional public skill- and MCP-backed plugin bundles
+
+## Claude Code
+
+The same plugins are published as a Claude Code marketplace in
+`.claude-plugin/marketplace.json`. It lists the 46 plugins that ship something
+Claude Code can load — skills, agents, commands or MCP servers. The 79
+app-only plugins are Codex connectors (`.app.json`) and are left out.
+
+```
+/plugin marketplace add bvgtdavantage-del/Superpuper
+/plugin install superpowers@superpuper
+```
+
+The file is generated from `.agents/plugins/marketplace.json` (for ordering)
+and each plugin's `.codex-plugin/plugin.json`. Regenerate it after adding or
+changing a plugin, and use `--check` to confirm it is current:
+
+```bash
+python3 scripts/build_claude_marketplace.py
+python3 scripts/build_claude_marketplace.py --check
+```
+
+Codex-only pieces do not carry over: `hooks.json`, `.app.json`, and
+`agents/openai.yaml` are ignored, and agent files without `name`/`description`
+frontmatter (some `figma` and `zoom` agents) load under a generic description.

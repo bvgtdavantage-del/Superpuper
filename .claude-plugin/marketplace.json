@@ -1,0 +1,1089 @@
+{
+  "name": "superpuper",
+  "owner": {
+    "name": "bvgtdavantage-del"
+  },
+  "metadata": {
+    "description": "Claude Code builds of the Superpuper plugin collection: every plugin that ships skills, agents, commands or MCP servers"
+  },
+  "plugins": [
+    {
+      "name": "linear",
+      "description": "Find and reference issues and projects.",
+      "source": "./plugins/linear",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "url": "https://linear.app/"
+      },
+      "homepage": "https://linear.app/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [],
+      "category": "productivity"
+    },
+    {
+      "name": "atlassian-rovo",
+      "description": "Manage Jira and Confluence fast",
+      "source": "./plugins/atlassian-rovo",
+      "strict": false,
+      "author": {
+        "name": "Atlassian",
+        "url": "https://www.atlassian.com"
+      },
+      "homepage": "https://www.atlassian.com",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "atlassian"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "google-calendar",
+      "description": "Connect Google Calendar for scheduling, availability, daily briefs, and event management.",
+      "source": "./plugins/google-calendar",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://workspace.google.com/products/calendar/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "google-calendar",
+        "calendar",
+        "agenda",
+        "daily-brief",
+        "scheduling",
+        "productivity"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "gmail",
+      "description": "Work with Gmail using the configured Gmail app connector.",
+      "source": "./plugins/gmail",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://workspace.google.com/products/gmail/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "gmail",
+        "email",
+        "google"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "slack",
+      "description": "Work with Slack using the configured Slack integration.",
+      "source": "./plugins/slack",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://slack.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "slack",
+        "chat",
+        "collaboration"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "teams",
+      "description": "Work with Teams using the configured Microsoft Teams app connector.",
+      "source": "./plugins/teams",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://www.microsoft.com/en-us/microsoft-teams/group-chat-software",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "teams",
+        "chat",
+        "microsoft"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "sharepoint",
+      "description": "Work with SharePoint using the configured Microsoft SharePoint app connector.",
+      "source": "./plugins/sharepoint",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "sharepoint",
+        "documents",
+        "microsoft"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "outlook-email",
+      "description": "Work with Outlook Email using the configured Microsoft Outlook app connector.",
+      "source": "./plugins/outlook-email",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://www.microsoft.com/en-us/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "outlook-email",
+        "email",
+        "microsoft"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "outlook-calendar",
+      "description": "Connect Outlook Calendar for scheduling, daily briefs, event prep, and safe meeting changes.",
+      "source": "./plugins/outlook-calendar",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://www.microsoft.com/en-us/microsoft-365/outlook/calendar-app",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "outlook-calendar",
+        "calendar",
+        "microsoft",
+        "scheduling",
+        "teams",
+        "daily-brief",
+        "meeting-prep"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "canva",
+      "description": "Search, create, edit designs",
+      "source": "./plugins/canva",
+      "strict": false,
+      "author": {
+        "name": "Canva",
+        "url": "https://www.canva.com"
+      },
+      "homepage": "https://www.canva.com",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [],
+      "category": "productivity"
+    },
+    {
+      "name": "figma",
+      "description": "Figma workflows for design implementation, Code Connect templates, and design system rule generation.",
+      "source": "./plugins/figma",
+      "strict": false,
+      "author": {
+        "name": "Figma",
+        "url": "https://www.figma.com"
+      },
+      "homepage": "https://www.figma.com",
+      "repository": "https://github.com/openai/plugins",
+      "license": "LicenseRef-Figma-Developer-Terms",
+      "keywords": [
+        "figma",
+        "design-to-code",
+        "ui-implementation",
+        "code-connect",
+        "design-system"
+      ],
+      "category": "design"
+    },
+    {
+      "name": "hugging-face",
+      "description": "Inspect models, datasets, Spaces, and research",
+      "source": "./plugins/hugging-face",
+      "strict": false,
+      "author": {
+        "name": "Hugging Face",
+        "url": "https://huggingface.co"
+      },
+      "homepage": "https://huggingface.co",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "hugging-face",
+        "models",
+        "datasets",
+        "spaces",
+        "machine-learning"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "netlify",
+      "description": "Deploy projects and manage preview or production releases on Netlify.",
+      "source": "./plugins/netlify",
+      "strict": false,
+      "author": {
+        "name": "Netlify",
+        "url": "https://www.netlify.com"
+      },
+      "homepage": "https://www.netlify.com",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "netlify",
+        "deployment",
+        "hosting",
+        "preview",
+        "static-sites"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "stripe",
+      "description": "Payments and business tools",
+      "source": "./plugins/stripe",
+      "strict": false,
+      "author": {
+        "name": "Stripe",
+        "url": "https://stripe.com"
+      },
+      "homepage": "https://stripe.com",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [],
+      "category": "productivity"
+    },
+    {
+      "name": "vercel",
+      "description": "Build and deploy web apps and agents",
+      "source": "./plugins/vercel",
+      "strict": false,
+      "author": {
+        "name": "Vercel Labs",
+        "url": "https://github.com/vercel"
+      },
+      "homepage": "https://vercel.com/",
+      "repository": "https://github.com/vercel/vercel-plugin",
+      "license": "Apache-2.0",
+      "keywords": [
+        "vercel",
+        "nextjs",
+        "ai-sdk",
+        "turborepo",
+        "turbopack",
+        "workflow",
+        "deployment",
+        "edge-functions",
+        "serverless",
+        "ai-gateway",
+        "chat-sdk",
+        "chat-bot",
+        "slack-bot",
+        "discord-bot"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "game-studio",
+      "description": "Design, prototype, and ship browser games with guided 2D and 3D workflows, asset pipelines, and playtesting support.",
+      "source": "./plugins/game-studio",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "games",
+        "phaser",
+        "threejs",
+        "react-three-fiber",
+        "gltf",
+        "rapier",
+        "webgl",
+        "sprites",
+        "playtest"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "superpowers",
+      "description": "An agentic skills framework & software development methodology that works: planning, TDD, debugging, and collaboration workflows.",
+      "source": "./plugins/superpowers",
+      "strict": false,
+      "author": {
+        "name": "Jesse Vincent",
+        "email": "jesse@fsck.com",
+        "url": "https://github.com/obra"
+      },
+      "homepage": "https://github.com/obra/superpowers",
+      "repository": "https://github.com/obra/superpowers",
+      "license": "MIT",
+      "keywords": [
+        "brainstorming",
+        "subagent-driven-development",
+        "skills",
+        "planning",
+        "tdd",
+        "debugging",
+        "code-review",
+        "workflow"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "box",
+      "description": "Search and reference your documents",
+      "source": "./plugins/box",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "url": "https://www.box.com/home"
+      },
+      "homepage": "https://www.box.com/home",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [],
+      "category": "productivity"
+    },
+    {
+      "name": "github",
+      "description": "Inspect repositories, triage pull requests and issues, debug CI, and publish changes through a hybrid GitHub connector and CLI workflow.",
+      "source": "./plugins/github",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://github.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "github",
+        "pull-request",
+        "code-review",
+        "issues",
+        "ci",
+        "actions"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "circleci",
+      "description": "Build, test, and deploy any application",
+      "source": "./plugins/circleci",
+      "strict": false,
+      "author": {
+        "name": "CircleCI",
+        "url": "https://circleci.com"
+      },
+      "homepage": "https://circleci.com",
+      "repository": "https://github.com/circleci-public/skills",
+      "license": "MIT",
+      "keywords": [
+        "circleci",
+        "ci/cd",
+        "ci"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "google-drive",
+      "description": "Use Google Drive as the single entrypoint for Drive, Docs, Sheets, and Slides work.",
+      "source": "./plugins/google-drive",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://workspace.google.com/products/drive/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "google-drive",
+        "google-docs",
+        "google-sheets",
+        "google-slides",
+        "productivity"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "notion",
+      "description": "Notion workflows for implementation planning, research synthesis, meeting preparation, and knowledge capture.",
+      "source": "./plugins/notion",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://www.notion.so/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "notion",
+        "documentation",
+        "research",
+        "meeting-prep",
+        "knowledge-management",
+        "planning"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "cloudflare",
+      "description": "Cloudflare platform plugin with curated skills for Workers, Wrangler, and Agents SDK plus the official Cloudflare API MCP server.",
+      "source": "./plugins/cloudflare",
+      "strict": false,
+      "author": {
+        "name": "Cloudflare",
+        "url": "https://workers.cloudflare.com/"
+      },
+      "homepage": "https://workers.cloudflare.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "cloudflare",
+        "workflow",
+        "deployment",
+        "edge-functions",
+        "edge",
+        "analytics",
+        "wrangler",
+        "agents-sdk",
+        "serverless",
+        "ai-gateway"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "sentry",
+      "description": "Inspect recent issues and events in Sentry from Codex.",
+      "source": "./plugins/sentry",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://sentry.io/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "sentry",
+        "observability",
+        "triage"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "build-ios-apps",
+      "description": "Build iOS apps with workflows for App Intents, SwiftUI UI work, refactors, performance profiling, leak investigation, and simulator debugging.",
+      "source": "./plugins/build-ios-apps",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "ios",
+        "swift",
+        "swiftui",
+        "app-intents",
+        "shortcuts",
+        "siri",
+        "spotlight",
+        "xcode",
+        "performance",
+        "debugging"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "build-macos-apps",
+      "description": "Build, run, test, debug, instrument, and implement local macOS apps using Xcode, SwiftUI, AppKit interop, unified logging, and shell-first desktop workflows.",
+      "source": "./plugins/build-macos-apps",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "macos",
+        "swift",
+        "swiftui",
+        "appkit",
+        "xcode",
+        "swiftpm",
+        "debugging",
+        "codesign",
+        "logging",
+        "telemetry",
+        "oslog"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "build-web-apps",
+      "description": "Build web apps with frontend asset design, browser testing, UI components, payments, and database guidance.",
+      "source": "./plugins/build-web-apps",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "build-web-apps",
+        "build",
+        "product-apps",
+        "frontend",
+        "image-generation",
+        "browser-testing",
+        "frontend-debugging",
+        "stripe",
+        "supabase",
+        "shadcn",
+        "full-stack",
+        "frontend-qa"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "test-android-apps",
+      "description": "Test Android apps with emulator workflows for reproduction, screenshots, UI inspection, log capture, and performance profiling.",
+      "source": "./plugins/test-android-apps",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "android",
+        "adb",
+        "emulator",
+        "qa",
+        "logcat",
+        "uiautomator",
+        "performance",
+        "simpleperf",
+        "perfetto",
+        "memory",
+        "leaks",
+        "heap"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "life-science-research",
+      "description": "General life-sciences research workflows with query routing, evidence synthesis, and optional parallel subagent analysis across genetics, omics, biology, chemistry, structure, clinical evidence, and public dataset discovery.",
+      "source": "./plugins/life-science-research",
+      "strict": false,
+      "author": {
+        "name": "OpenAI"
+      },
+      "homepage": "https://github.com/openai/openai/tree/master/plugins/life-science-research",
+      "repository": "https://github.com/openai/openai/tree/master/plugins/life-science-research",
+      "license": "Proprietary",
+      "keywords": [
+        "life-science",
+        "research",
+        "bioinformatics",
+        "human-genetics",
+        "functional-genomics",
+        "transcriptomics",
+        "proteomics",
+        "metabolomics",
+        "clinical-research",
+        "drug-discovery",
+        "skill-routing",
+        "evidence-synthesis",
+        "parallel-analysis",
+        "gwas",
+        "variant-interpretation",
+        "pathway-biology",
+        "protein-structure"
+      ],
+      "category": "research"
+    },
+    {
+      "name": "zotero",
+      "description": "Work with Zotero from Codex: search your library, export BibTeX, insert citations, and import references through the Zotero desktop app.",
+      "source": "./plugins/zotero",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "zotero",
+        "citations",
+        "bibliography",
+        "bibtex",
+        "references",
+        "research",
+        "papers",
+        "latex"
+      ],
+      "category": "research"
+    },
+    {
+      "name": "expo",
+      "description": "Official Expo skills for building, deploying, upgrading, and debugging Expo and React Native apps.",
+      "source": "./plugins/expo",
+      "strict": false,
+      "author": {
+        "name": "Expo Team",
+        "email": "support@expo.dev",
+        "url": "https://expo.dev"
+      },
+      "homepage": "https://docs.expo.dev/skills/",
+      "repository": "https://github.com/expo/skills/tree/main/plugins/expo",
+      "license": "MIT",
+      "keywords": [
+        "expo",
+        "react-native",
+        "expo-router",
+        "codex-run-actions",
+        "eas",
+        "mobile",
+        "ios",
+        "android",
+        "deployment",
+        "upgrades",
+        "native-modules"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "coderabbit",
+      "description": "AI-powered code review in Codex, powered by CodeRabbit.",
+      "source": "./plugins/coderabbit",
+      "strict": false,
+      "author": {
+        "name": "CodeRabbit AI",
+        "email": "support@coderabbit.ai",
+        "url": "https://coderabbit.ai"
+      },
+      "homepage": "https://docs.coderabbit.ai/cli/overview",
+      "repository": "https://github.com/coderabbitai/codex-plugin",
+      "license": "MIT",
+      "keywords": [
+        "code-review",
+        "ai",
+        "coderabbit",
+        "codex"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "neon-postgres",
+      "description": "Manage Neon Serverless Postgres projects and databases with the neon-postgres agent skill and the Neon MCP Server",
+      "source": "./plugins/neon-postgres",
+      "strict": false,
+      "author": {
+        "name": "Neon",
+        "email": "andre@neon.tech",
+        "url": "https://neon.com"
+      },
+      "homepage": "https://neon.com/docs/ai/neon-mcp-server",
+      "repository": "https://github.com/openai/plugins",
+      "license": "Apache-2.0",
+      "keywords": [
+        "neon",
+        "postgres",
+        "serverless",
+        "database",
+        "mcp",
+        "sql"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "remotion",
+      "description": "Remotion video creation skills — best practices, animations, audio, captions, 3D, and more for building programmatic videos with React.",
+      "source": "./plugins/remotion",
+      "strict": false,
+      "author": {
+        "name": "Remotion",
+        "email": "hi@remotion.dev",
+        "url": "https://remotion.dev"
+      },
+      "homepage": "https://remotion.dev",
+      "repository": "https://github.com/remotion-dev/remotion",
+      "license": "MIT",
+      "keywords": [
+        "remotion",
+        "video",
+        "react",
+        "animation",
+        "composition",
+        "rendering",
+        "ffmpeg",
+        "captions",
+        "audio"
+      ],
+      "category": "design"
+    },
+    {
+      "name": "plugin-eval",
+      "description": "Evaluate Codex skills and plugins from chat with a beginner-friendly start command, local-first reports, token budget explanations, and guided benchmarking.",
+      "source": "./plugins/plugin-eval",
+      "strict": false,
+      "author": {
+        "name": "OpenAI Codex",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://openai.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "codex",
+        "plugin",
+        "skill",
+        "evaluation",
+        "quality",
+        "budget"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "hubspot",
+      "description": "Work with your HubSpot data to analyze patterns, create and update records, and manage your CRM operations.",
+      "source": "./plugins/hubspot",
+      "strict": false,
+      "author": {
+        "name": "HubSpot",
+        "url": "https://www.hubspot.com/"
+      },
+      "homepage": "https://www.hubspot.com/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "MIT",
+      "keywords": [
+        "hubspot",
+        "crm",
+        "sales",
+        "pipeline",
+        "customer-support"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "render",
+      "description": "Skills for deploying, debugging, monitoring, and migrating apps on Render.",
+      "source": "./plugins/render",
+      "strict": false,
+      "author": {
+        "name": "Render",
+        "email": "support@render.com",
+        "url": "https://render.com"
+      },
+      "homepage": "https://github.com/renderinc/render-codex-plugin",
+      "repository": "https://github.com/renderinc/render-codex-plugin",
+      "license": "MIT",
+      "keywords": [
+        "render",
+        "deploy",
+        "cloud",
+        "blueprint",
+        "monitoring",
+        "debugging"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "temporal",
+      "description": "Comprehensive skill for the entire Temporal lifecycle — developing applications, using the Temporal CLI, running and managing Temporal Server, and working with Temporal Cloud.",
+      "source": "./plugins/temporal",
+      "strict": false,
+      "author": {
+        "name": "Temporal",
+        "url": "https://temporal.io/"
+      },
+      "homepage": "https://temporal.io/",
+      "repository": "https://github.com/temporalio/codex-temporal-plugin",
+      "license": "MIT",
+      "keywords": [
+        "temporal",
+        "workflow",
+        "durable-execution",
+        "python",
+        "typescript",
+        "go",
+        "java",
+        "microservices",
+        "distributed-systems"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "hyperframes",
+      "description": "Write HTML, render video. Compositions, GSAP animations, captions, voiceovers, audio-reactive visuals, and website-to-video capture for HyperFrames.",
+      "source": "./plugins/hyperframes",
+      "strict": false,
+      "author": {
+        "name": "HeyGen",
+        "email": "hyperframes@heygen.com",
+        "url": "https://hyperframes.heygen.com"
+      },
+      "homepage": "https://hyperframes.heygen.com",
+      "repository": "https://github.com/heygen-com/hyperframes",
+      "license": "Apache-2.0",
+      "keywords": [
+        "hyperframes",
+        "video",
+        "html",
+        "gsap",
+        "animation",
+        "composition",
+        "rendering",
+        "captions",
+        "tts",
+        "audio-reactive"
+      ],
+      "category": "design"
+    },
+    {
+      "name": "heygen",
+      "description": "Create HeyGen avatar videos and personalized video messages. Build a persistent digital identity from a photo, then generate presenter-led videos with your digital twin.",
+      "source": "./plugins/heygen",
+      "strict": false,
+      "author": {
+        "name": "HeyGen",
+        "email": "developers@heygen.com",
+        "url": "https://heygen.com"
+      },
+      "homepage": "https://heygen.com",
+      "repository": "https://github.com/heygen-com/skills",
+      "license": "MIT",
+      "keywords": [
+        "heygen",
+        "avatar",
+        "identity",
+        "video",
+        "digital-twin",
+        "video-message",
+        "presenter",
+        "talking-head",
+        "ai-avatar",
+        "avatar-video"
+      ],
+      "category": "design"
+    },
+    {
+      "name": "supabase",
+      "description": "Access your Supabase projects and perform tasks like managing tables, fetching config, and querying data.",
+      "source": "./plugins/supabase",
+      "strict": false,
+      "author": {
+        "name": "Supabase",
+        "email": "support@supabase.io",
+        "url": "https://supabase.com"
+      },
+      "homepage": "https://supabase.com",
+      "repository": "https://github.com/supabase-community/codex-plugin",
+      "license": "MIT",
+      "keywords": [
+        "supabase",
+        "postgres",
+        "database",
+        "backend",
+        "mcp"
+      ],
+      "category": "coding"
+    },
+    {
+      "name": "codex-security",
+      "description": "Codex Security workflows for security scans, analysis, and investigation.",
+      "source": "./plugins/codex-security",
+      "strict": false,
+      "author": {
+        "name": "OpenAI"
+      },
+      "homepage": "https://openai.com/index/codex-security-now-in-research-preview/",
+      "repository": "https://github.com/openai/plugins",
+      "license": "Proprietary",
+      "keywords": [
+        "security",
+        "code-review",
+        "diff-review",
+        "appsec",
+        "threat-modeling"
+      ],
+      "category": "engineering"
+    },
+    {
+      "name": "twilio-developer-kit",
+      "description": "Twilio Skills provide procedural knowledge for AI coding agents — which APIs to use, in what order, and what to avoid. Covers Messaging, Voice, Verify, SendGrid, and 30+ products.",
+      "source": "./plugins/twilio-developer-kit",
+      "strict": false,
+      "author": {
+        "name": "Twilio",
+        "url": "https://www.twilio.com"
+      },
+      "homepage": "https://www.twilio.com/docs",
+      "repository": "https://github.com/twilio/ai",
+      "license": "MIT",
+      "keywords": [
+        "twilio",
+        "sms",
+        "voice",
+        "whatsapp",
+        "rcs",
+        "messaging",
+        "verify",
+        "sendgrid",
+        "email",
+        "compliance",
+        "conversation-relay",
+        "conversation-memory",
+        "conversation-intelligence",
+        "conversation-orchestrator",
+        "agent-connect",
+        "enterprise-knowledge",
+        "apple-messages-for-business",
+        "api"
+      ],
+      "category": "apis"
+    },
+    {
+      "name": "openai-developers",
+      "description": "Build with OpenAI APIs, Agents SDK, and ChatGPT Apps, and create and save OpenAI API keys from Codex.",
+      "source": "./plugins/openai-developers",
+      "strict": false,
+      "author": {
+        "name": "OpenAI",
+        "email": "support@openai.com",
+        "url": "https://openai.com/"
+      },
+      "homepage": "https://platform.openai.com/",
+      "repository": "https://github.com/openai/plugins/tree/main/plugins/openai-developers",
+      "license": "Proprietary",
+      "keywords": [
+        "openai-platform",
+        "api-key",
+        "agents-sdk",
+        "agents",
+        "chatgpt-apps",
+        "apps-sdk",
+        "mcp",
+        "submissions",
+        "codex"
+      ],
+      "category": "engineering"
+    },
+    {
+      "name": "zoom",
+      "description": "Connect Codex to Zoom meeting context and build Zoom apps, bots, API integrations, SDK workflows, webhooks, and automations.",
+      "source": "./plugins/zoom",
+      "strict": false,
+      "author": {
+        "name": "Zoom",
+        "url": "https://github.com/zoom"
+      },
+      "homepage": "https://developers.zoom.us/",
+      "repository": "https://github.com/zoom/zoom-plugin-codex",
+      "license": "MIT",
+      "keywords": [
+        "zoom",
+        "codex-plugin",
+        "connector",
+        "meetings",
+        "transcripts",
+        "recordings",
+        "docs",
+        "developers",
+        "rest-api",
+        "meeting-sdk",
+        "video-sdk",
+        "webhooks",
+        "oauth"
+      ],
+      "category": "productivity"
+    },
+    {
+      "name": "scrapegraph-property",
+      "description": "Search live Dubai property listings, pull full listing details, and research community-level market intel through a ScrapeGraphAI-backed MCP server.",
+      "source": "./plugins/scrapegraph-property",
+      "strict": false,
+      "author": {
+        "name": "Constant Estate",
+        "url": "https://scrapegraphai.com"
+      },
+      "homepage": "https://scrapegraphai.com",
+      "repository": "https://github.com/bvgtdavantage-del/Superpuper",
+      "license": "MIT",
+      "keywords": [
+        "real-estate",
+        "property",
+        "dubai",
+        "scraping",
+        "scrapegraphai",
+        "listings",
+        "market-research",
+        "mcp"
+      ],
+      "category": "coding",
+      "mcpServers": {
+        "scrapegraph-property": {
+          "command": "node",
+          "args": [
+            "${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js"
+          ]
+        }
+      }
+    }
+  ]
+}

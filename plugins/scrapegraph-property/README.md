@@ -56,6 +56,30 @@ Get a key from the [ScrapeGraphAI dashboard](https://scrapegraphai.com).
 `${CODEX_PLUGIN_ROOT}/mcp-server/dist/index.js`. If your MCP client does not
 expand `${CODEX_PLUGIN_ROOT}`, replace that argument with an absolute path.
 
+### Claude Code
+
+Install from this repo's Claude Code marketplace:
+
+```
+/plugin marketplace add bvgtdavantage-del/Superpuper
+/plugin install scrapegraph-property@superpuper
+```
+
+Claude Code does not expand `${CODEX_PLUGIN_ROOT}`, so the marketplace entry
+replaces `.mcp.json` with the same server launched from
+`${CLAUDE_PLUGIN_ROOT}/mcp-server/dist/index.js`. That root is Claude Code's
+installed copy of the plugin, not this checkout, so run `install.sh` there
+(again after each plugin update, since each version gets its own directory):
+
+```bash
+cd "$(ls -td ~/.claude/plugins/cache/superpuper/scrapegraph-property/*/ | head -1)mcp-server"
+SGAI_API_KEY=sgai-yourkey ./install.sh
+```
+
+The Claude Code entry passes no `env` block, so the server reads
+`SGAI_API_KEY` from the environment Claude Code was started in, then from
+`mcp-server/.env`.
+
 ### Environment
 
 | Variable | Required | Default | Notes |
