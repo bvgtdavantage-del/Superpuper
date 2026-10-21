@@ -1,0 +1,1223 @@
+<title>Polina — MetaGarage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: night showroom. Hero = concierge chat beside an engraved gold medallion over lacquer sheen and a workshop floor; then services, two M Monogram build plates, marques, visit card. */
+:root{
+  --bg:#090D15;
+  --bg-2:#0D131F;
+  --surface:#121A28;
+  --disc-a:#1C2639;
+  --disc-b:#0F1622;
+  --ink:#ECE5D5;
+  --dim:#8E98AA;
+  --gold:#C8A35A;
+  --gold-hi:#E6CB8E;
+  --on-gold:#0A0E16;
+  --gold-line:rgba(200,163,90,.42);
+  --line:rgba(236,229,213,.11);
+  --line-2:rgba(236,229,213,.22);
+  --glow:rgba(200,163,90,.24);
+  --streak:rgba(230,203,142,.075);
+  --user-bg:#ECE5D5;
+  --user-ink:#0A0E16;
+  --ok:#5FC8A2;
+  --f-display:"Cormorant Garamond","Cormorant",Garamond,"Times New Roman",serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#EDEFF3;
+    --bg-2:#E3E7ED;
+    --surface:#FFFFFF;
+    --disc-a:#FFFFFF;
+    --disc-b:#E6EAF0;
+    --ink:#0E1626;
+    --dim:#566176;
+    --gold:#8C6C2C;
+    --gold-hi:#9C7A34;
+    --on-gold:#FFFFFF;
+    --gold-line:rgba(140,108,44,.42);
+    --line:rgba(14,22,38,.11);
+    --line-2:rgba(14,22,38,.22);
+    --glow:rgba(140,108,44,.16);
+    --streak:rgba(14,22,38,.045);
+    --user-bg:#0E1626;
+    --user-ink:#EDEFF3;
+    --ok:#1E8A67;
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#EDEFF3;
+  --bg-2:#E3E7ED;
+  --surface:#FFFFFF;
+  --disc-a:#FFFFFF;
+  --disc-b:#E6EAF0;
+  --ink:#0E1626;
+  --dim:#566176;
+  --gold:#8C6C2C;
+  --gold-hi:#9C7A34;
+  --on-gold:#FFFFFF;
+  --gold-line:rgba(140,108,44,.42);
+  --line:rgba(14,22,38,.11);
+  --line-2:rgba(14,22,38,.22);
+  --glow:rgba(140,108,44,.16);
+  --streak:rgba(14,22,38,.045);
+  --user-bg:#0E1626;
+  --user-ink:#EDEFF3;
+  --ok:#1E8A67;
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--f-body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+a{color:inherit}
+.wrap{
+  width:100%;max-width:1180px;margin:0 auto;
+  padding-left:max(20px,env(safe-area-inset-left,0px));
+  padding-right:max(20px,env(safe-area-inset-right,0px));
+}
+.eyebrow{
+  display:flex;align-items:center;gap:12px;margin:0 0 18px;
+  font-family:var(--f-mono);font-size:11px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.cc-label{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--dim);
+}
+.btn-sm{
+  appearance:none;display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--line-2);background:transparent;color:var(--ink);
+  font:600 12.5px/1 var(--f-body);letter-spacing:.02em;
+  padding:9px 14px;border-radius:999px;cursor:pointer;text-decoration:none;
+  transition:border-color .15s,color .15s,background .15s;white-space:nowrap;
+}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold-hi)}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.btn-gold:hover{background:var(--gold-hi);border-color:var(--gold-hi);color:var(--on-gold)}
+
+/* ================= hero ================= */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:var(--bg)}
+.sheen{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(56% 64% at 78% 44%, var(--glow), transparent 70%),
+    linear-gradient(104deg, transparent 0 40%, var(--streak) 47%, transparent 54%),
+    linear-gradient(104deg, transparent 0 63%, var(--streak) 67%, transparent 71%);
+  background-size:100% 100%,240% 100%,280% 100%;
+  background-position:0 0,100% 0,0 0;
+  animation:sheen 22s ease-in-out infinite alternate;
+}
+@keyframes sheen{to{background-position:0 0,0 0,100% 0}}
+.floor{
+  position:absolute;left:-20%;right:-20%;bottom:0;height:42%;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px;
+  transform:perspective(520px) rotateX(64deg);transform-origin:50% 100%;
+  -webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.85),transparent 85%);
+  mask-image:linear-gradient(to top,rgba(0,0,0,.85),transparent 85%);
+}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px 6px}
+.brand{display:flex;flex-direction:column;gap:3px;min-width:0}
+.brand b{font-weight:800;font-size:14px;letter-spacing:.34em}
+.brand small{font-family:var(--f-mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--gold)}
+.lang{display:flex;border:1px solid var(--line-2);border-radius:999px;padding:3px;flex-shrink:0}
+.lang button{
+  appearance:none;border:0;background:transparent;color:var(--dim);cursor:pointer;
+  font:700 12px/1 var(--f-body);letter-spacing:.1em;padding:9px 14px;border-radius:999px;
+}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.stage{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:clamp(28px,5vw,72px);align-items:center;
+  padding-block:clamp(28px,5vw,60px) clamp(56px,8vw,96px);
+}
+.talk{min-width:0}
+h1{margin:0;font-weight:inherit}
+#st1{
+  display:block;font-family:var(--f-display);font-weight:600;
+  font-size:clamp(52px,7.6vw,108px);line-height:.96;letter-spacing:-.012em;
+  margin-bottom:20px;text-wrap:balance;
+}
+#st1 em{font-style:italic;color:var(--gold-hi)}
+#st2{
+  display:block;font-size:clamp(17px,1.6vw,19.5px);line-height:1.55;
+  color:var(--dim);max-width:46ch;margin-bottom:30px;
+}
+#st2 .accent{color:var(--ink);font-weight:600}
+.talk.live #st2{display:none}
+.talk.live #st1{font-size:clamp(34px,3.8vw,52px);margin-bottom:18px}
+
+.log{
+  display:none;flex-direction:column;gap:12px;
+  max-height:min(54vh,540px);overflow-y:auto;overscroll-behavior:contain;
+  margin:0 0 16px;padding:2px 6px 2px 0;scrollbar-width:thin;
+}
+.talk.live .log{display:flex}
+.msg{
+  max-width:min(92%,62ch);min-width:0;padding:14px 18px;
+  font-size:15.5px;line-height:1.6;overflow-wrap:anywhere;
+  animation:rise .35s var(--ease) both;
+}
+.msg .body{white-space:pre-wrap}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.ai{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 18px 4px}
+.msg.user{align-self:flex-end;background:var(--user-bg);color:var(--user-ink);border-radius:18px 18px 4px 18px;font-weight:500}
+.msg.contact{border-color:var(--gold-line)}
+.who{
+  display:block;margin-bottom:6px;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+}
+.say{
+  appearance:none;border:0;background:transparent;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 0;
+  color:var(--dim);font:600 12.5px/1 var(--f-body);
+}
+.say:hover{color:var(--gold-hi)}
+.say svg{width:14px;height:14px}
+.typing{display:inline-flex;gap:5px;padding:6px 2px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--dim);animation:blink 1.1s infinite}
+.typing i:nth-child(2){animation-delay:.18s}
+.typing i:nth-child(3){animation-delay:.36s}
+@keyframes blink{0%,70%,100%{opacity:.25;transform:none}35%{opacity:1;transform:translateY(-3px)}}
+.cc{display:grid;gap:12px;margin-top:14px}
+.cc-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.cc-row .cc-label{flex-basis:100%}
+.cc-val{font-family:var(--f-mono);font-size:15px;user-select:all;-webkit-user-select:all}
+.cc-links{display:flex;flex-wrap:wrap;gap:8px}
+
+.composer{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:18px;
+  padding:8px 8px 8px 20px;transition:border-color .2s,box-shadow .2s;
+}
+.composer:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px var(--glow)}
+.composer input{
+  flex:1;min-width:0;background:transparent;border:0;outline:none;
+  font:500 17px/1.4 var(--f-body);color:var(--ink);padding-block:10px;
+}
+.composer input::placeholder{color:var(--dim)}
+.send{
+  appearance:none;border:0;cursor:pointer;flex-shrink:0;
+  width:48px;height:48px;border-radius:12px;display:grid;place-items:center;
+  background:var(--gold);color:var(--on-gold);transition:background .2s;
+}
+.send:hover{background:var(--gold-hi)}
+.send:disabled{opacity:.5;cursor:default}
+.send svg{width:20px;height:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{
+  appearance:none;cursor:pointer;text-align:left;
+  font:600 13.5px/1.25 var(--f-body);color:var(--ink);background:transparent;
+  border:1px solid var(--line-2);border-radius:999px;padding:10px 16px;
+  transition:border-color .15s,color .15s;
+}
+.chip:hover{border-color:var(--gold);color:var(--gold-hi)}
+.chip.alt{border-style:dashed;color:var(--dim)}
+
+/* medallion */
+.medal-zone{justify-self:center;width:100%;max-width:400px;min-width:0}
+.medal{position:relative;width:100%;max-width:100%;aspect-ratio:1/1}
+.medal svg{display:block;width:100%;height:100%;overflow:visible}
+.halo{
+  position:absolute;inset:7%;border-radius:50%;pointer-events:none;
+  box-shadow:0 0 0 1px var(--gold-line),0 0 90px var(--glow);opacity:.55;
+}
+.medal.speaking .halo{animation:breathe 1.3s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.035);opacity:1}}
+.ring-rot{transform-box:view-box;transform-origin:200px 200px;animation:spin 80s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring-text{font-family:var(--f-mono);font-size:13px;font-weight:500;letter-spacing:.06em;fill:var(--dim)}
+.mono-p{font-family:var(--f-display);font-style:italic;font-weight:600;font-size:214px}
+.mono-cap{font-family:var(--f-mono);font-size:12px;letter-spacing:.32em;fill:var(--gold)}
+.badge{
+  position:absolute;top:5%;right:0;display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--gold-line);color:var(--ink);
+  font:600 12px/1 var(--f-body);letter-spacing:.05em;padding:9px 14px;border-radius:999px;
+}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sound{
+  position:absolute;bottom:5%;left:0;display:flex;align-items:center;gap:8px;
+  appearance:none;cursor:pointer;background:var(--surface);color:var(--ink);
+  border:1px solid var(--line-2);border-radius:999px;padding:9px 14px;
+  font:600 12px/1 var(--f-body);letter-spacing:.03em;
+}
+.sound svg{width:16px;height:16px}
+.sound[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-hi)}
+
+/* ================= marquee ================= */
+.marquee{border-block:1px solid var(--line);background:var(--bg-2);overflow:hidden;white-space:nowrap;padding-block:14px}
+.track{display:inline-flex;align-items:center;gap:30px;padding-right:30px;animation:slide 56s linear infinite;will-change:transform}
+.marquee:hover .track,.marquee:focus-within .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.mq{
+  appearance:none;border:0;background:transparent;cursor:pointer;padding:0;
+  display:inline-flex;align-items:center;gap:30px;
+  font:500 15px/1.2 var(--f-body);color:var(--ink);
+}
+.mq::after{content:"";width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+.mq:hover{color:var(--gold-hi)}
+
+/* ================= sections ================= */
+.sec{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--line)}
+.sec-head{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:20px 56px;align-items:end;margin-bottom:clamp(32px,4vw,56px);
+}
+.sec-head > *{min-width:0}
+h2{
+  margin:0;font-family:var(--f-display);font-weight:600;
+  font-size:clamp(38px,4.8vw,60px);line-height:1.02;letter-spacing:-.01em;text-wrap:balance;
+}
+.lede{margin:0;color:var(--dim);font-size:17px;max-width:52ch}
+
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;border-bottom:1px solid var(--line)}
+.svc-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:center;
+  padding-block:22px;border-top:1px solid var(--line);
+}
+.svc-row h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:27px;line-height:1.1}
+.svc-row p{grid-column:1;margin:0;color:var(--dim);font-size:15px}
+.svc-row .btn-sm{grid-column:2;grid-row:1 / span 2}
+
+.stats{display:flex;flex-wrap:wrap;gap:20px 56px;margin:0 0 44px;padding:0;list-style:none}
+.stats li{display:flex;flex-direction:column;gap:4px;min-width:0}
+.stats b{
+  font-family:var(--f-display);font-weight:600;font-size:clamp(44px,5vw,60px);
+  line-height:1;color:var(--gold-hi);font-variant-numeric:lining-nums tabular-nums;
+}
+.stats span{font-size:13.5px;color:var(--dim);max-width:24ch}
+.builds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.plate{
+  position:relative;display:flex;flex-direction:column;gap:22px;min-width:0;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:6px;padding:30px;
+}
+.plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--line);border-radius:3px;pointer-events:none}
+.plate-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px 14px}
+.plate h3{margin:0;font-family:var(--f-display);font-weight:600;font-size:clamp(30px,3vw,40px);line-height:1}
+.tag{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold-line);border-radius:999px;padding:6px 10px;white-space:nowrap;
+}
+.spec{margin:0;display:grid}
+.spec div{display:grid;grid-template-columns:118px minmax(0,1fr);gap:16px;padding-block:11px;border-top:1px dashed var(--line-2)}
+.spec dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);padding-top:4px}
+.spec dd{margin:0;font-size:15px;font-variant-numeric:tabular-nums}
+.plate .btn-sm{align-self:flex-start;position:relative}
+.more{margin:28px 0 0;font-size:15px;color:var(--dim)}
+.more a{color:var(--ink);font-weight:600;text-decoration:none;border-bottom:1px solid var(--line-2)}
+.more a:hover{color:var(--gold-hi);border-color:var(--gold)}
+
+.brands{
+  display:flex;flex-wrap:wrap;align-items:center;gap:4px 0;margin:0;padding:0;list-style:none;
+  font-family:var(--f-display);font-style:italic;font-weight:500;
+  font-size:clamp(28px,3.6vw,44px);line-height:1.25;
+}
+.brands li{display:inline-flex;align-items:center}
+.brands li:not(:last-child)::after{content:"";width:6px;height:6px;margin-inline:18px;background:var(--gold);transform:rotate(45deg)}
+.brands-note{margin:22px 0 0;color:var(--dim);font-size:16px}
+.press{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;margin-top:44px;padding-top:24px;border-top:1px solid var(--line)}
+.press a{text-decoration:none;font-weight:600;font-size:15px;border-bottom:1px solid var(--line-2)}
+.press a:hover{color:var(--gold-hi);border-color:var(--gold)}
+
+.visit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,64px);align-items:start}
+.visit > *{min-width:0}
+.facts{display:grid;gap:20px;margin:30px 0 26px}
+.facts div{display:grid;gap:4px}
+.facts dd{margin:0;font-size:18px}
+.card{display:grid;gap:24px;background:var(--surface);border:1px solid var(--line-2);border-radius:6px;padding:30px}
+.card-row{display:grid;gap:8px;min-width:0}
+.big-val{font-family:var(--f-mono);font-size:clamp(18px,2vw,22px);user-select:all;-webkit-user-select:all;overflow-wrap:anywhere}
+.row-btns{display:flex;flex-wrap:wrap;gap:8px}
+.steps{list-style:none;counter-reset:s;margin:4px 0 0;padding:0;display:grid;gap:12px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:baseline;font-size:15.5px}
+.steps li::before{content:counter(s);font-family:var(--f-display);font-style:italic;font-weight:600;font-size:26px;line-height:1;color:var(--gold-hi)}
+
+.foot{display:flex;flex-wrap:wrap;gap:10px 40px;align-items:baseline;justify-content:space-between;padding-block:30px 48px}
+.foot b{font-size:12px;font-weight:800;letter-spacing:.3em;white-space:nowrap}
+.foot p{margin:0;font-size:12.5px;color:var(--dim);max-width:78ch}
+
+/* ================= responsive ================= */
+@media (max-width:900px){
+  .stage{grid-template-columns:minmax(0,1fr);gap:22px}
+  .medal-zone{order:-1;max-width:250px}
+  .badge,.sound{font-size:11px;padding:7px 11px}
+  #st1{font-size:clamp(46px,12vw,72px)}
+  .talk.live #st1{font-size:clamp(28px,7.4vw,38px)}
+  .sec-head,.visit{grid-template-columns:minmax(0,1fr)}
+  .svc,.builds{grid-template-columns:minmax(0,1fr)}
+  .log{max-height:56vh}
+}
+@media (max-width:520px){
+  .svc-row{grid-template-columns:minmax(0,1fr)}
+  .svc-row .btn-sm{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}
+  .spec div{grid-template-columns:92px minmax(0,1fr);gap:12px}
+  .plate,.card{padding:24px 22px}
+  .send{width:44px;height:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .sheen,.ring-rot,.badge i,.typing i,.medal.speaking .halo,.msg{animation:none}
+  .track{animation:none}
+  .marquee{overflow-x:auto}
+}
+</style>
+
+<div class="hero">
+  <div class="sheen" aria-hidden="true"></div>
+  <div class="floor" aria-hidden="true"></div>
+
+  <header class="wrap top">
+    <div class="brand"><b>METAGARAGE</b><small data-t="brand_sub"></small></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="lang-en" data-lang="en">EN</button>
+      <button type="button" id="lang-ru" data-lang="ru">RU</button>
+    </div>
+  </header>
+
+  <div class="wrap stage">
+    <section class="talk" id="talk" aria-labelledby="st1">
+      <p class="eyebrow" data-t="eyebrow"></p>
+      <h1><span id="st1" data-h="st1"></span><span id="st2" data-h="st2"></span></h1>
+
+      <div class="log" id="log" aria-live="polite"></div>
+
+      <form class="composer" id="ask-form" autocomplete="off">
+        <input id="ask-input" name="q" type="text" enterkeyhint="send">
+        <button class="send" id="ask-send" type="submit" aria-label="Send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <div class="chips" id="chips"></div>
+    </section>
+
+    <aside class="medal-zone">
+      <div class="medal" id="medal">
+        <div class="halo" aria-hidden="true"></div>
+        <svg viewBox="0 0 400 400" role="img" aria-label="Polina, MetaGarage AI concierge">
+          <defs>
+            <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" style="stop-color:var(--gold-hi)"/>
+              <stop offset=".52" style="stop-color:var(--gold)"/>
+              <stop offset="1" style="stop-color:var(--gold-hi)"/>
+            </linearGradient>
+            <radialGradient id="gDisc" cx=".36" cy=".3" r=".85">
+              <stop offset="0" style="stop-color:var(--disc-a)"/>
+              <stop offset="1" style="stop-color:var(--disc-b)"/>
+            </radialGradient>
+            <path id="ringPath" d="M200,200 m-167,0 a167,167 0 1,1 334,0 a167,167 0 1,1 -334,0"/>
+          </defs>
+          <circle cx="200" cy="200" r="197" fill="none" stroke="url(#gGold)" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="186" fill="none" style="stroke:var(--line-2)" stroke-width="1"/>
+          <g class="ring-rot">
+            <text class="ring-text"><textPath href="#ringPath" textLength="1040" lengthAdjust="spacing">METAGARAGE · M MONOGRAM · DUBAI · AI CONCIERGE · METAGARAGE · M MONOGRAM · DUBAI · AI CONCIERGE · </textPath></text>
+          </g>
+          <circle cx="200" cy="200" r="148" fill="url(#gDisc)" stroke="url(#gGold)" stroke-width="2"/>
+          <circle cx="200" cy="200" r="137" fill="none" style="stroke:var(--gold-line)" stroke-width="1" stroke-dasharray="2 6"/>
+          <text x="200" y="262" text-anchor="middle" class="mono-p" fill="url(#gGold)">P</text>
+          <text x="204" y="312" text-anchor="middle" class="mono-cap">POLINA · AI</text>
+        </svg>
+        <span class="badge"><i aria-hidden="true"></i><span data-t="status"></span></span>
+        <button class="sound" id="sound" type="button" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+          <span id="sound-label"></span>
+        </button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="marquee"><div class="track" id="track"></div></div>
+
+<main>
+  <section class="sec" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow" data-t="services_eyebrow"></p><h2 data-t="services_h"></h2></div>
+        <p class="lede" data-t="services_p"></p>
+      </div>
+      <div class="svc" id="svc"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="monogram">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow" data-t="mono_eyebrow"></p><h2 data-t="mono_h"></h2></div>
+        <p class="lede" data-t="mono_p"></p>
+      </div>
+      <ul class="stats" id="stats"></ul>
+      <div class="builds" id="builds"></div>
+      <p class="more"><span data-t="mono_more"></span> <a href="https://www.instagram.com/metagarage_m_monogram/" target="_blank" rel="noopener">@metagarage_m_monogram</a></p>
+    </div>
+  </section>
+
+  <section class="sec" id="marques">
+    <div class="wrap">
+      <p class="eyebrow" data-t="brands_eyebrow"></p>
+      <ul class="brands" id="brands"></ul>
+      <p class="brands-note" data-t="brands_note"></p>
+      <div class="press" id="press"><span class="cc-label" data-t="press_label"></span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="visit">
+    <div class="wrap visit">
+      <div>
+        <p class="eyebrow" data-t="visit_eyebrow"></p>
+        <h2 data-t="visit_h"></h2>
+        <dl class="facts">
+          <div><dt class="cc-label" data-t="address_label"></dt><dd data-t="address"></dd></div>
+          <div><dt class="cc-label" data-t="hours_label"></dt><dd data-t="hours"></dd></div>
+        </dl>
+        <a class="btn-sm" id="map-link" target="_blank" rel="noopener" data-t="map_link"></a>
+      </div>
+      <div class="card">
+        <div class="card-row">
+          <span class="cc-label" data-t="contact_label"></span>
+          <span class="big-val" id="v-phone"></span>
+          <div class="row-btns">
+            <button type="button" class="btn-sm" id="copy-phone" data-t="copy"></button>
+            <a class="btn-sm btn-gold" id="wa-link" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="cc-label" data-t="email_label"></span>
+          <span class="big-val" id="v-email"></span>
+          <div class="row-btns"><button type="button" class="btn-sm" id="copy-email" data-t="copy"></button></div>
+        </div>
+        <div class="card-row">
+          <span class="cc-label">Instagram</span>
+          <div class="row-btns">
+            <a class="btn-sm" href="https://www.instagram.com/1metagarage/" target="_blank" rel="noopener">@1metagarage</a>
+            <a class="btn-sm" href="https://www.instagram.com/metagarage_m_monogram/" target="_blank" rel="noopener">@metagarage_m_monogram</a>
+          </div>
+        </div>
+        <div class="card-row">
+          <span class="cc-label" data-t="steps_label"></span>
+          <ol class="steps" id="steps"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <b>METAGARAGE · DUBAI</b>
+  <p data-t="foot"></p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ================= data ================= */
+const CONTACT = {
+  phone:"+971 54 507 7707",
+  wa:"971545077707",
+  email:"info@metagarage.ae",
+  ig:"https://www.instagram.com/1metagarage/",
+  map:"https://www.google.com/maps/search/?api=1&query=MetaGarage%20Al%20Quoz%20Industrial%20Area%201%20Dubai"
+};
+
+const KB = [
+  {id:"meta-polina", meta:true,
+   keywords:["кто такая полина","кто ты","ты кто","что ты","что умеешь","умеешь","бот","нейросет"," ии ","робот","who are you","what can you","what are you","who is polina","assistant"," bot "," ai "," robot"],
+   q_en:"What can Polina do?", q_ru:"Что умеет Полина?",
+   a_en:"I’m Polina’s AI, the digital concierge of MetaGarage in Dubai. I know the atelier’s work: PPF and wraps, tuning and body kits, paint, detailing, interiors, technical service, rims and the limited M Monogram builds. Ask me anything about your car. When you’re ready for a quote or a booking, I’ll connect you with the team.",
+   a_ru:"Я ИИ Полины, цифровой консьерж MetaGarage в Дубае. Знаю работу ателье: PPF и оклейка, тюнинг и обвесы, покраска, детейлинг, салон, техобслуживание, диски и лимитированные проекты M Monogram. Спрашивайте что угодно о своей машине. Когда будете готовы узнать цену или записаться, соединю вас с командой.",
+   related:["services","m-monogram","booking"]},
+  {id:"about",
+   keywords:["metagarage","метагараж","мета гараж","мета-гараж","компани","о вас","кто вы","about you","company","founder","owner","основател","владел","гашков","gashkov","кто стоит","who is behind","who owns","истори","history"],
+   q_en:"Who is behind MetaGarage?", q_ru:"Кто стоит за MetaGarage?",
+   a_en:"MetaGarage is a premium car atelier in Al Quoz, Dubai, registered as MetaGarage Auto General Repairing L.L.C. It works only with high-end and luxury cars and does the full cycle under one roof: service, protection, paint, detailing, interiors and tuning. It is led by Polina (Pauline) Gashkova, who also founded the M Monogram Tuning Atelier. Clients come from the Gulf, Europe, Africa and Monaco.",
+   a_ru:"MetaGarage — премиальное автоателье в Аль-Кузе, Дубай, компания MetaGarage Auto General Repairing L.L.C. Работает только с люксовыми автомобилями и ведёт полный цикл под одной крышей: сервис, защита, покраска, детейлинг, салон и тюнинг. Во главе — Полина Гашкова, основательница тюнинг-ателье M Monogram. Клиенты приезжают из стран Залива, Европы, Африки и Монако.",
+   related:["m-monogram","why","location"]},
+  {id:"services",
+   keywords:["услуг","что делаете","чем занимаетесь","что вы делаете","services","what services","what do you do","what do you offer","направлен","возможност"],
+   q_en:"What services do you offer?", q_ru:"Какие услуги вы оказываете?",
+   a_en:"Everything for the car under one roof:\n— PPF, colour wraps and tinting\n— Tuning: ready-made kits and bespoke aero body kits\n— Paint and bodywork, including liquid wrap\n— Detailing: wash, polishing, ozone treatment\n— Interiors and upholstery by our art designers\n— Technical service, exhaust work and chip tuning\n— Premium rims with fitting in the workshop\n— M Monogram limited builds\nWhich of these is about your car?",
+   a_ru:"Всё для машины под одной крышей:\n— PPF, оклейка в цвет и тонировка\n— Тюнинг: готовые комплекты и индивидуальные аэрообвесы\n— Покраска и кузов, включая жидкую резину\n— Детейлинг: мойка, полировка, озонирование\n— Салон и обивка от наших арт-дизайнеров\n— Техобслуживание, выхлопные системы и чип-тюнинг\n— Премиальные диски с примеркой в мастерской\n— Лимитированные проекты M Monogram\nЧто из этого про вашу машину?",
+   related:["ppf","tuning","interior"]},
+  {id:"ppf",
+   keywords:["ppf","ппф","пленк","оклей","wrap","тонир","tint","винил","vinyl","защитн","protect","скол","царап","scratch","stone chip","жидк","liquid"],
+   q_en:"What does PPF protect against?", q_ru:"От чего защищает PPF?",
+   a_en:"PPF is a clear protective film: it takes stone chips, fine scratches and sun so the factory paint stays intact. MetaGarage also does full colour wraps, vinyl design, liquid wrap and window tinting. The price depends on the car and the coverage, front end or full body, so the team quotes after seeing it. Tell me the model and I’ll prepare the request.",
+   a_ru:"PPF — прозрачная защитная плёнка: принимает на себя сколы, мелкие царапины и солнце, а родная краска остаётся целой. MetaGarage также делает полную оклейку в цвет, винил-дизайн, жидкую резину и тонировку. Цена зависит от машины и зоны, перед или кузов целиком, поэтому команда считает после осмотра. Назовите модель, и я подготовлю заявку.",
+   related:["price","detailing","booking"]},
+  {id:"tuning",
+   keywords:["тюнинг","tuning","обвес","body kit","bodykit","аэро","aero","комплект"," kit","кастом","custom","доработ","экстерьер","exterior","модерниз","upgrade","апгрейд","спойлер","spoiler","g-class","гелик","гелендваген"],
+   q_en:"What tuning do you do?", q_ru:"Какой тюнинг вы делаете?",
+   a_en:"Two formats. Ready-made kits from established ateliers, installed in our workshop. Or a bespoke project: aerodynamic body kits developed with leading ateliers, custom exterior and lighting, interior work. Chip tuning is available for more power. The G-Class, Rolls-Royce, Maybach and Land Rover are frequent guests.",
+   a_ru:"Два формата. Готовые комплекты от известных ателье с установкой в нашей мастерской. Или индивидуальный проект: аэродинамические обвесы, разработанные вместе с ведущими ателье, кастомный экстерьер и свет, работа с салоном. Для мощности есть чип-тюнинг. Частые гости — G-Class, Rolls-Royce, Maybach и Land Rover.",
+   related:["m-monogram","interior","service"]},
+  {id:"m-monogram",
+   keywords:["monogram","монограм","лимит","limited","коллекц","collect","1 of 1","1-of-1","эксклюзив","exclusive","bespoke","уникальн","unique"],
+   q_en:"What is M Monogram?", q_ru:"Что такое M Monogram?",
+   a_en:"M Monogram is the boutique line inside MetaGarage: collectible tuning in a limited format. Each project is built in very small numbers and never repeated, so the car keeps or even raises its value. By November 2025 the atelier had completed fifteen bespoke projects, including a commission for a client in Africa. The best known are the G 3.0 Iconic and the G900 M Monogram.",
+   a_ru:"M Monogram — бутик-направление внутри MetaGarage: коллекционный тюнинг ограниченным тиражом. Каждый проект выходит совсем малой серией и не повторяется, поэтому машина сохраняет, а то и повышает свою ценность. К ноябрю 2025 года ателье завершило пятнадцать индивидуальных проектов, включая заказ для клиента из Африки. Самые известные — G 3.0 Iconic и G900 M Monogram.",
+   related:["g30","g900","buy"]},
+  {id:"g30",
+   keywords:["iconic","айконик","иконик","g 3.0","g3.0"," g3 "," g 3 ","binz","бинц","300 c","300c","решетк","grille","700"],
+   q_en:"Tell me about the G 3.0 Iconic", q_ru:"Расскажите про G 3.0 Iconic",
+   a_en:"The G 3.0 Iconic is built on the Mercedes-AMG G 63. Its face is a huge upright retro grille inspired by the one-off 1950s Binz wagon on the Mercedes 300 C. It adds star-shaped LED daytime lights, new bumpers, flared arches, side exhausts, a roof light bar and a reworked interior, and the grille comes in chrome or black. 50 cars are planned, from $700,000 before personalisation, with delivery worldwide.",
+   a_ru:"G 3.0 Iconic построен на базе Mercedes-AMG G 63. Его лицо — огромная вертикальная ретро-решётка, вдохновлённая уникальным универсалом Binz 1950-х на Mercedes 300 C. Плюс звёздные LED-огни, новые бамперы, расширенные арки, боковой выхлоп, световая балка на крыше и переработанный салон, а решётка бывает хромированной или чёрной. Запланировано 50 машин, цена от $700 000 до персонализации, доставка по всему миру.",
+   related:["buy","g900","international"]},
+  {id:"g900",
+   keywords:["g900","g 900","g-900","майбах","maybach"],
+   q_en:"Tell me about the G900", q_ru:"Расскажите про G900",
+   a_en:"The G900 M Monogram is MetaGarage’s Maybach-style G 63: a tall vertical-slat grille with chrome, multi-spoke wheels, new sills with rectangular exhausts and a roof wing. Inside there is white perforated leather, MM headrests and a rear lounge with its own console and screens. The 4.0-litre V8 stays stock at 585 PS and 850 Nm. The MM badge stands for M Monogram. The G900 is especially popular with clients in Ghana and Nigeria.",
+   a_ru:"G900 M Monogram — G 63 в стиле Maybach от MetaGarage: высокая решётка с вертикальными ламелями и хромом, многоспицевые диски, новые пороги с прямоугольными выхлопами и спойлер на крыше. В салоне белая перфорированная кожа, подголовники с MM и задний лаунж с собственной консолью и экранами. Двигатель 4.0 V8 остаётся штатным: 585 л.с. и 850 Н·м. Эмблема MM означает M Monogram. G900 особенно популярен у клиентов из Ганы и Нигерии.",
+   related:["g30","buy","interior"]},
+  {id:"buy", handoff:true,
+   keywords:["купить","покупк","продаж","продает","продаете","в наличии","наличи","buy","purchase","for sale","sell","stock","заказать машин","готовую машин","на продажу"],
+   q_en:"Can I buy an M Monogram G-Class?", q_ru:"Можно купить G-Class M Monogram?",
+   a_en:"Yes. M Monogram builds are sold as finished cars: the G 3.0 Iconic starts at $700,000 and is limited to 50, the G900 M Monogram is built to order, and both ship worldwide. If you are looking for another car, tell the team what you want and they will show you what is available.",
+   a_ru:"Да. Проекты M Monogram продаются готовыми машинами: G 3.0 Iconic — от $700 000, тираж 50, G900 M Monogram собирается под заказ, оба доставляются по всему миру. Если ищете другую машину, расскажите команде, что нужно, и вам покажут доступные варианты.",
+   related:["g30","international","contact"]},
+  {id:"paint",
+   keywords:["покрас","краск","paint","кузов","bodywork","body work","respray","перекрас","вмятин","dent","смена цвета","сменить цвет","colour change","color change"],
+   q_en:"Do you paint cars?", q_ru:"Вы красите машины?",
+   a_en:"Yes, with premium automotive paints, from a single panel to a full colour change. Bodywork and liquid wrap too. Send the model and a photo of the area, and the team will estimate.",
+   a_ru:"Да, премиальными автоэмалями: от одной детали до полной смены цвета. Также кузовной ремонт и жидкая резина. Пришлите модель и фото участка, команда оценит работу.",
+   related:["ppf","detailing","price"]},
+  {id:"detailing",
+   keywords:["детейл","detail","мойк","wash","полиров","polish","керамик","ceramic","покрыти","coating","озон","ozon","химчист","чистк","clean"],
+   q_en:"What does detailing include?", q_ru:"Что входит в детейлинг?",
+   a_en:"A detailing wash, machine polishing, protective coatings and ozone treatment of the cabin. It is work for cars where every millimetre of the finish matters, so the elegance of a Rolls-Royce comes back without any loss of quality.",
+   a_ru:"Детейлинг-мойка, машинная полировка, защитные покрытия и озонирование салона. Это работа для машин, где важен каждый миллиметр покрытия: элегантность вашего Rolls-Royce вернётся без потери качества.",
+   related:["ppf","paint","booking"]},
+  {id:"interior",
+   keywords:["салон","interior","интерьер","перетяж","обивк","upholster","кожа","кожу","leather","строчк","stitch","сидень","seat","потолок","звездное небо","starlight","руль","steering"],
+   q_en:"Can you redo my interior?", q_ru:"Можно переделать салон?",
+   a_en:"Yes. A dedicated team of art designers works on interiors: custom upholstery, leather, stitching patterns, colour schemes and rear-seat lounges. The G 3.0 Iconic, for example, got red seats with diamond stitching, and the G900 has white perforated leather throughout. Tell me the car and the mood you want, and the team will come back with ideas.",
+   a_ru:"Да. С салонами работает отдельная команда арт-дизайнеров: индивидуальная обивка, кожа, рисунок строчки, цветовые решения, задний лаунж. Например, у G 3.0 Iconic красные сиденья с ромбовидной строчкой, а у G900 белая перфорированная кожа по всему салону. Назовите машину и желаемое настроение, и команда предложит идеи.",
+   related:["tuning","g900","booking"]},
+  {id:"service",
+   keywords:["ремонт","repair","сервис","service","обслужив","maintenance","диагност","diagnos"," то ","масл","oil","двигател","engine","мотор","выхлоп","exhaust","чип","chip tuning","прошив","мощност","power","сломал","broke","не работает","коробк","gearbox","тормоз","brake","подвеск","suspension"],
+   q_en:"Do you service and repair cars?", q_ru:"Вы обслуживаете и ремонтируете машины?",
+   a_en:"Yes. Technical service and repair for luxury cars: diagnostics, maintenance and repairs, by specialists who work only with premium brands. Exhaust systems too: diagnostics, repair, custom manifolds and resonators. Chip tuning is available if you want more power.",
+   a_ru:"Да. Техническое обслуживание и ремонт люксовых машин: диагностика, ТО и ремонт силами специалистов, которые работают только с премиальными марками. Также выхлопные системы: диагностика, ремонт, изготовление коллекторов и резонаторов. Для прибавки мощности есть чип-тюнинг.",
+   related:["tuning","timing","booking"]},
+  {id:"rims",
+   keywords:["диск","rim","wheel","колес","шин","tyre","tire","шиномонтаж","магазин","store","shop","forged","кован"],
+   q_en:"Do you sell rims?", q_ru:"У вас есть диски?",
+   a_en:"Yes. Premium rims from top ateliers, with fitting and tyre service in our workshop, so you can see them on the car before deciding. Rims and body kits are also available through the MetaGarage online store.",
+   a_ru:"Да. Премиальные диски от ведущих ателье, с примеркой и шиномонтажом в нашей мастерской: можно увидеть их на машине до решения. Диски и обвесы также есть в онлайн-магазине MetaGarage.",
+   related:["tuning","price","location"]},
+  {id:"brands",
+   keywords:["марк","brand","rolls","роллс","bentley","бентли","ferrari","феррари","lamborghini","ламборгин","porsche","порше","mercedes","мерседес","range rover","рендж","land rover","bugatti","бугатти","pagani","пагани","koenigsegg","кенигсегг","cullinan","куллинан","urus","урус","какие машины","which cars","what cars"],
+   q_en:"Which brands do you work with?", q_ru:"С какими марками вы работаете?",
+   a_en:"Only high-end cars: Rolls-Royce, Maybach, Bentley, Mercedes-Benz, Ferrari, Lamborghini, Porsche, Land Rover and others. Collectors also bring Bugatti, Pagani and Koenigsegg, often limited-production models.",
+   a_ru:"Только автомобили высокого класса: Rolls-Royce, Maybach, Bentley, Mercedes-Benz, Ferrari, Lamborghini, Porsche, Land Rover и другие. Коллекционеры привозят и Bugatti, Pagani, Koenigsegg, часто лимитированные модели.",
+   related:["services","m-monogram","booking"]},
+  {id:"price", generic:true, handoff:true,
+   keywords:["цен","стоим","стоит","сколько","price","cost","how much","бюджет","budget","дорог","expensive","прайс","pricing","quote","смет","расчет"],
+   q_en:"How are prices calculated?", q_ru:"Как формируется цена?",
+   a_en:"Every job is priced individually: it depends on the car, its condition and the scope. The one published figure is the G 3.0 Iconic, from $700,000. For anything else, send the model, the year and what you want done, and the team will quote.",
+   a_ru:"Каждая работа считается индивидуально: зависит от машины, её состояния и объёма. Единственная опубликованная цена — G 3.0 Iconic, от $700 000. Для остального пришлите модель, год и что хотите сделать, и команда сделает расчёт.",
+   related:["booking","timing","contact"]},
+  {id:"timing", generic:true,
+   keywords:["срок","сколько времени","как долго","how long","долго","когда будет","когда готов","дней"," days","time frame","timeline","быстро","quickly","deadline"],
+   q_en:"How long does a job take?", q_ru:"Сколько времени занимает работа?",
+   a_en:"It depends on the job and the parts. The team names the deadline up front and works to finish on time, because a client’s time matters as much as the quality. Tell me what you’d like done and on which car, and they’ll give you a date.",
+   a_ru:"Зависит от работы и запчастей. Команда называет срок заранее и старается закончить вовремя: время клиента важно не меньше качества. Расскажите, что и на какой машине нужно сделать, и вам назовут дату.",
+   related:["booking","price","location"]},
+  {id:"location", handoff:true,
+   keywords:["адрес","где вы","где наход","address","where are you","where is","location","часы","hours","open","открыт","работаете","график","al quoz","аль куоз","аль-куоз","карт","map","как доехать","how to get","приехать","directions"],
+   q_en:"Where are you in Dubai?", q_ru:"Где вы находитесь?",
+   a_en:"MetaGarage is at Community 364, Street 9A, Al Quoz Industrial Area 1, Dubai. Open Monday to Saturday, 9:00 to 20:00, and closed on Sunday. Visits are by appointment, so book first and then drive over.",
+   a_ru:"MetaGarage: Community 364, Street 9A, Al Quoz Industrial Area 1, Дубай. Работаем с понедельника по субботу, с 9:00 до 20:00, воскресенье выходной. Приезд по записи: сначала бронь, потом визит.",
+   related:["booking","timing","price"]},
+  {id:"booking", generic:true, handoff:true,
+   keywords:["запис","запиш","book","appointment","заявк","визит","visit","slot","бронь","reserve","приеду","can i come","прийти"],
+   q_en:"How do I book a visit?", q_ru:"Как записаться?",
+   a_en:"Booking takes three steps: choose the service, pick a time to bring the car, and send the request to our concierge. The quickest way is WhatsApp or a call. Have ready the model and year, what you want done, and photos if there is damage.",
+   a_ru:"Запись в три шага: выбрать услугу, выбрать время, когда привезти машину, и отправить заявку нашему консьержу. Быстрее всего через WhatsApp или звонок. Подготовьте модель и год, что нужно сделать и фото, если есть повреждения.",
+   related:["location","price","timing"]},
+  {id:"contact", meta:true, handoff:true,
+   keywords:["контакт","телефон","позвон","whatsapp","ватсап","вотсап","номер","менеджер","человек","живой","связат","связь","contact","call ","phone","manager","human","real person","email","e-mail","почт","telegram","телеграм","instagram","инстаграм"],
+   q_en:"How do I reach the team?", q_ru:"Как связаться с командой?",
+   a_en:"Here are the direct contacts. The team answers on WhatsApp and by phone within 24 hours on business days.",
+   a_ru:"Вот прямые контакты. Команда отвечает в WhatsApp и по телефону в течение 24 часов в рабочие дни.",
+   related:["location","booking"]},
+  {id:"international",
+   keywords:["доставк","deliver","ship","за границ","abroad","worldwide","по миру","international","gcc","залив","филиал","branch","саудов","saudi","катар","qatar","кувейт","kuwait","африк","africa","европ","europe","монако","monaco","росси","russia","экспорт","export","другую стран","another country"],
+   q_en:"Do you ship cars abroad?", q_ru:"Доставляете машины за границу?",
+   a_en:"Yes. Clients come from Europe, the Middle East, Africa and Monaco, and M Monogram builds are delivered worldwide. MetaGarage is also preparing branches across the GCC.",
+   a_ru:"Да. Клиенты приезжают из Европы, Ближнего Востока, Африки и Монако, а проекты M Monogram доставляются по всему миру. MetaGarage также готовит филиалы в странах Залива.",
+   related:["buy","m-monogram","contact"]},
+  {id:"why",
+   keywords:["почему вы","почему metagarage","почему метагараж","why you","why metagarage","why should","отличаетесь","чем лучше","better than","advantage","преимущ","отзыв","review","пресс","press","media","гарант","guarantee","доверя","trust"],
+   q_en:"Why MetaGarage?", q_ru:"Почему MetaGarage?",
+   a_en:"The whole car is handled in one workshop, from service to bespoke tuning. The team works only with premium brands and has its own art designers. And the work speaks for itself: M Monogram projects have been featured by Carscoops, auto motor und sport and autoevolution.",
+   a_ru:"Вся машина делается в одной мастерской, от сервиса до индивидуального тюнинга. Команда работает только с премиальными марками, и у неё есть свои арт-дизайнеры. А работы говорят сами за себя: о проектах M Monogram писали Carscoops, auto motor und sport и autoevolution.",
+   related:["m-monogram","brands","booking"]}
+];
+
+const SERVICES = [
+  {id:"ppf",        n_en:"PPF, wrap and tint",   n_ru:"PPF, оклейка, тонировка", d_en:"Clear protection film, colour change, vinyl design, window tint.", d_ru:"Защитная плёнка, смена цвета, винил-дизайн, тонировка."},
+  {id:"tuning",     n_en:"Tuning and body kits", n_ru:"Тюнинг и обвесы",         d_en:"Ready-made kits from established ateliers, or bespoke aero.",      d_ru:"Готовые комплекты известных ателье или индивидуальная аэродинамика."},
+  {id:"paint",      n_en:"Paint and bodywork",   n_ru:"Покраска и кузов",         d_en:"Premium paints and liquid wrap, from one panel to a new colour.",  d_ru:"Премиальные эмали и жидкая резина, от детали до нового цвета."},
+  {id:"detailing",  n_en:"Detailing",            n_ru:"Детейлинг",                d_en:"Wash, machine polish, protective coatings, ozone treatment.",      d_ru:"Мойка, машинная полировка, защитные покрытия, озонирование."},
+  {id:"interior",   n_en:"Interiors",            n_ru:"Салон",                    d_en:"Art designers for upholstery, leather and stitching.",             d_ru:"Арт-дизайнеры: обивка, кожа, строчка."},
+  {id:"service",    n_en:"Service and repair",   n_ru:"Сервис и ремонт",          d_en:"Diagnostics, maintenance, exhaust systems, chip tuning.",          d_ru:"Диагностика, ТО, выхлопные системы, чип-тюнинг."},
+  {id:"rims",       n_en:"Rims and tyres",       n_ru:"Диски и шины",             d_en:"Premium rims, tried on and fitted in the workshop.",               d_ru:"Премиальные диски с примеркой и шиномонтажом."},
+  {id:"m-monogram", n_en:"M Monogram",           n_ru:"M Monogram",               d_en:"Limited collectible builds, never repeated.",                      d_ru:"Лимитированные коллекционные проекты без повторов."}
+];
+
+const BUILDS = [
+  {id:"g30", name:"G 3.0 Iconic", tag_en:"Run of 50", tag_ru:"Тираж 50", rows:[
+    ["Base","База","Mercedes-AMG G 63","Mercedes-AMG G 63"],
+    ["From","Цена от","$700,000","$700 000"],
+    ["Inspired by","Образ","Binz wagon on the 300 C, 1950s","Универсал Binz на 300 C, 1950-е"],
+    ["Grille","Решётка","Chrome or black","Хром или чёрная"],
+    ["Lights","Свет","Star LED DRLs, roof light bar","Звёздные LED-ДХО, балка на крыше"],
+    ["Delivery","Доставка","Worldwide","По всему миру"]]},
+  {id:"g900", name:"G900 M Monogram", tag_en:"Built to order", tag_ru:"Под заказ", rows:[
+    ["Base","База","Mercedes-AMG G 63","Mercedes-AMG G 63"],
+    ["Engine","Двигатель","4.0 V8 biturbo, stock","4.0 V8 битурбо, штатный"],
+    ["Output","Мощность","585 PS · 850 Nm","585 л.с. · 850 Н·м"],
+    ["Cabin","Салон","White perforated leather, rear lounge","Белая перфорированная кожа, задний лаунж"],
+    ["Badge","Эмблема","MM stands for M Monogram","MM означает M Monogram"],
+    ["Markets","Рынки","Popular in Ghana and Nigeria","Популярен в Гане и Нигерии"]]}
+];
+
+const BRANDS = ["Rolls-Royce","Maybach","Bentley","Ferrari","Lamborghini","Porsche","Mercedes-Benz","Land Rover"];
+const PRESS = [
+  ["Carscoops","https://www.carscoops.com/2026/05/metagarage-g-class-iconic/"],
+  ["auto motor und sport","https://www.auto-motor-und-sport.de/tuning/metagarage-g3-0-m-monogram-die-protz-benz-g-klasse/"],
+  ["autoevolution","https://www.autoevolution.com/news/the-m-monogram-mercedes-amg-g-63-is-a-custom-g-wagen-like-you-ve-never-seen-before-269129.html"],
+  ["Chic Dubai Magazine","https://chicdubaimagazine.com/pauline-gashkova-engineering-elegance-on-wheels/"]
+];
+
+const I18N = {
+  en:{
+    brand_sub:"M Monogram Atelier · Dubai",
+    eyebrow:"AI concierge · MetaGarage",
+    st1:"Hi, I’m <em>Polina</em>.",
+    st2:"Ask me about PPF, tuning, service or an <span class=\"accent\">M Monogram</span> build for your car. I answer in seconds.",
+    placeholder:"Ask about your car…", ask_label:"Question for Polina", send:"Send",
+    status:"online now",
+    chips:[["How much is PPF for my car?","ppf"],["Tell me about the G 3.0 Iconic","g30"],["Can I buy an M Monogram G-Class?","buy"]],
+    curiosity:"What can Polina do?",
+    marquee:[["What does PPF protect against?","ppf"],["Which brands do you work with?","brands"],["How do I book a visit?","booking"],["What is M Monogram?","m-monogram"],["Do you ship cars abroad?","international"],["Can you redo my interior?","interior"],["Where are you in Dubai?","location"],["Do you do chip tuning?","service"]],
+    greeting:"Hello, I’m Polina. Well, Polina’s AI. I know everything MetaGarage does for luxury cars, from PPF and paint to full M Monogram builds. What are you driving, and what would you like to change?",
+    greet_reply:"Hello! Tell me what you drive and what you have in mind: protection, tuning, interior, service, or something one of a kind.",
+    thanks:"My pleasure. If anything else comes up about your car, I’m here.",
+    fallback:"I know MetaGarage’s work best: PPF and wraps, tuning, paint, detailing, interiors, service, rims and M Monogram builds. Ask about one of those, or reach the team directly:",
+    contact_intro:"The team answers on WhatsApp or by phone. Send the model, the year and what you’d like done.",
+    who_ai:"Polina · AI", who_team:"MetaGarage team",
+    listen:"Listen", sound_on:"Voice on", sound_off:"Voice off", copy:"Copy", copied:"Copied", map_short:"Map",
+    wa_text:"Hello MetaGarage! I’m writing from Polina’s page.", wa_q:"My question: ",
+    services_eyebrow:"Services", services_h:"The whole car, under one roof",
+    services_p:"MetaGarage works only with high-end and luxury cars. Pick a line and Polina will tell you how it works.",
+    ask_btn:"Ask Polina",
+    mono_eyebrow:"M Monogram Tuning Atelier", mono_h:"Built in small numbers. Never repeated.",
+    mono_p:"The boutique line inside MetaGarage: collectible tuning where each project exists in a tiny run and keeps, or raises, the car’s value.",
+    mono_stats:[["15","bespoke projects by November 2025"],["50","G 3.0 Iconic cars planned"],["$700k","G 3.0 Iconic starting price"]],
+    build_ask:"Ask about this build", mono_more:"Every build, as it leaves the workshop:",
+    brands_eyebrow:"Marques in the workshop",
+    brands_note:"Collectors also bring Bugatti, Pagani and Koenigsegg, often limited-production models.",
+    press_label:"Featured in",
+    visit_eyebrow:"Visit", visit_h:"By appointment, in Al Quoz",
+    address_label:"Address", address:"Community 364, Street 9A, Al Quoz Industrial Area 1, Dubai, UAE",
+    hours_label:"Hours", hours:"Monday to Saturday, 9:00–20:00 · Sunday closed",
+    map_link:"Open in Google Maps", contact_label:"Phone and WhatsApp", email_label:"Email",
+    steps_label:"How booking works", steps:["Choose the service","Pick a time to bring the car","Send the request to our concierge"],
+    foot:"Polina is the AI concierge of MetaGarage. Answers come from information MetaGarage has published; prices, timing and availability are confirmed by the team after seeing the car. © 2026 MetaGarage Auto General Repairing L.L.C., Dubai.",
+    err_busy:"Too many questions at once. Give me a moment and ask again."
+  },
+  ru:{
+    brand_sub:"Ателье M Monogram · Дубай",
+    eyebrow:"ИИ-консьерж · MetaGarage",
+    st1:"Здравствуйте, я <em>Полина</em>.",
+    st2:"Спросите меня про PPF, тюнинг, сервис или проект <span class=\"accent\">M Monogram</span> для вашей машины. Отвечу за секунды.",
+    placeholder:"Спросите о своей машине…", ask_label:"Вопрос Полине", send:"Отправить",
+    status:"на связи",
+    chips:[["Сколько стоит PPF на мою машину?","ppf"],["Расскажите про G 3.0 Iconic","g30"],["Можно купить G-Class M Monogram?","buy"]],
+    curiosity:"Что умеет Полина?",
+    marquee:[["От чего защищает PPF?","ppf"],["С какими марками вы работаете?","brands"],["Как записаться?","booking"],["Что такое M Monogram?","m-monogram"],["Доставляете машины за границу?","international"],["Можно переделать салон?","interior"],["Где вы находитесь?","location"],["Делаете чип-тюнинг?","service"]],
+    greeting:"Здравствуйте, я Полина. Точнее, ИИ Полины. Знаю всё, что MetaGarage делает для люксовых машин, от PPF и покраски до проектов M Monogram. На чём вы ездите и что хотите изменить?",
+    greet_reply:"Здравствуйте! Расскажите, на чём ездите и что задумали: защита, тюнинг, салон, сервис или что-то единственное в своём роде.",
+    thanks:"Пожалуйста. Если появятся вопросы о машине, я здесь.",
+    fallback:"Лучше всего я знаю работу MetaGarage: PPF и оклейка, тюнинг, покраска, детейлинг, салон, сервис, диски и проекты M Monogram. Спросите об этом или напишите команде напрямую:",
+    contact_intro:"Команда отвечает в WhatsApp и по телефону. Пришлите модель, год и что хотите сделать.",
+    who_ai:"Полина · ИИ", who_team:"Команда MetaGarage",
+    listen:"Слушать", sound_on:"Голос вкл.", sound_off:"Голос выкл.", copy:"Копировать", copied:"Скопировано", map_short:"Карта",
+    wa_text:"Здравствуйте, MetaGarage! Пишу со страницы Полины.", wa_q:"Мой вопрос: ",
+    services_eyebrow:"Услуги", services_h:"Вся машина под одной крышей",
+    services_p:"MetaGarage работает только с автомобилями высокого класса. Выберите направление, и Полина расскажет, как всё устроено.",
+    ask_btn:"Спросить Полину",
+    mono_eyebrow:"Тюнинг-ателье M Monogram", mono_h:"Малыми тиражами. Без повторов.",
+    mono_p:"Бутик-направление внутри MetaGarage: коллекционный тюнинг, где каждый проект выходит крошечной серией и сохраняет, а то и повышает ценность машины.",
+    mono_stats:[["15","индивидуальных проектов к ноябрю 2025"],["50","машин G 3.0 Iconic в плане"],["$700k","стартовая цена G 3.0 Iconic"]],
+    build_ask:"Спросить об этом проекте", mono_more:"Каждый проект, как только выходит из мастерской:",
+    brands_eyebrow:"Марки в мастерской",
+    brands_note:"Коллекционеры привозят и Bugatti, Pagani, Koenigsegg, часто лимитированные модели.",
+    press_label:"О нас писали",
+    visit_eyebrow:"Визит", visit_h:"По записи, в Аль-Кузе",
+    address_label:"Адрес", address:"Community 364, Street 9A, Al Quoz Industrial Area 1, Дубай, ОАЭ",
+    hours_label:"Часы работы", hours:"Понедельник – суббота, 9:00–20:00 · воскресенье выходной",
+    map_link:"Открыть в Google Картах", contact_label:"Телефон и WhatsApp", email_label:"Почта",
+    steps_label:"Как проходит запись", steps:["Выберите услугу","Выберите время, когда привезти машину","Отправьте заявку нашему консьержу"],
+    foot:"Полина — ИИ-консьерж MetaGarage. Ответы основаны на информации, которую опубликовал MetaGarage; цены, сроки и наличие команда подтверждает после осмотра машины. © 2026 MetaGarage Auto General Repairing L.L.C., Дубай.",
+    err_busy:"Слишком много вопросов сразу. Дайте мне секунду и спросите ещё раз."
+  }
+};
+
+/* ================= setup ================= */
+const $ = s => document.querySelector(s);
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const T = l => I18N[l] || I18N.en;
+const talk = $("#talk"), logEl = $("#log"), chipsBox = $("#chips"), input = $("#ask-input");
+const sendBtn = $("#ask-send"), medal = $("#medal"), soundBtn = $("#sound");
+
+function readLang(){ try{ return localStorage.getItem("mg-lang"); }catch(e){ return null; } }
+function saveLang(l){ try{ localStorage.setItem("mg-lang", l); }catch(e){} }
+let lang = readLang();
+if(lang !== "en" && lang !== "ru") lang = (navigator.language || "").toLowerCase().startsWith("ru") ? "ru" : "en";
+
+function el(tag, cls, txt){
+  const n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt != null) n.textContent = txt;
+  return n;
+}
+function link(href, txt, cls){
+  const a = el("a", cls, txt);
+  a.href = href; a.target = "_blank"; a.rel = "noopener";
+  return a;
+}
+function waURL(l, q){
+  const t = T(l);
+  const msg = t.wa_text + (q ? "\n" + t.wa_q + q : "");
+  return "https://wa.me/" + CONTACT.wa + "?text=" + encodeURIComponent(msg);
+}
+function selectNode(n){
+  try{ const r = document.createRange(); r.selectNodeContents(n); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }catch(e){}
+}
+function copyText(val, node, btn, l){
+  const done = () => { btn.textContent = T(l).copied; setTimeout(() => { btn.textContent = T(l).copy; }, 1600); };
+  try{
+    navigator.clipboard.writeText(val).then(done, () => selectNode(node));
+  }catch(e){ selectNode(node); }
+}
+
+/* ================= static sections ================= */
+function renderServices(){
+  const box = $("#svc"); box.textContent = "";
+  SERVICES.forEach(s => {
+    const row = el("div","svc-row");
+    row.appendChild(el("h3", null, s["n_"+lang]));
+    row.appendChild(el("p", null, s["d_"+lang]));
+    const b = el("button","btn-sm", T(lang).ask_btn + " →");
+    b.type = "button";
+    b.addEventListener("click", () => askFrom(s.id));
+    row.appendChild(b);
+    box.appendChild(row);
+  });
+}
+function renderStats(){
+  const box = $("#stats"); box.textContent = "";
+  T(lang).mono_stats.forEach(([n, l]) => {
+    const li = el("li");
+    li.appendChild(el("b", null, n));
+    li.appendChild(el("span", null, l));
+    box.appendChild(li);
+  });
+}
+function renderBuilds(){
+  const box = $("#builds"); box.textContent = "";
+  const ru = lang === "ru";
+  BUILDS.forEach(b => {
+    const p = el("article","plate");
+    const head = el("div","plate-head");
+    head.appendChild(el("h3", null, b.name));
+    head.appendChild(el("span","tag", ru ? b.tag_ru : b.tag_en));
+    p.appendChild(head);
+    const dl = el("dl","spec");
+    b.rows.forEach(r => {
+      const d = el("div");
+      d.appendChild(el("dt", null, ru ? r[1] : r[0]));
+      d.appendChild(el("dd", null, ru ? r[3] : r[2]));
+      dl.appendChild(d);
+    });
+    p.appendChild(dl);
+    const btn = el("button","btn-sm", T(lang).build_ask + " →");
+    btn.type = "button";
+    btn.addEventListener("click", () => askFrom(b.id));
+    p.appendChild(btn);
+    box.appendChild(p);
+  });
+}
+function renderSteps(){
+  const box = $("#steps"); box.textContent = "";
+  T(lang).steps.forEach(s => box.appendChild(el("li", null, s)));
+}
+function renderMarquee(){
+  const track = $("#track"); track.textContent = "";
+  const items = T(lang).marquee;
+  const copies = reduced ? 1 : 2;
+  for(let c = 0; c < copies; c++){
+    items.forEach(([q, hint]) => {
+      const b = el("button","mq", q);
+      b.type = "button";
+      if(c > 0){ b.tabIndex = -1; b.setAttribute("aria-hidden","true"); }
+      b.addEventListener("click", () => { scrollToTalk(); chipAsk(q, null, hint); });
+      track.appendChild(b);
+    });
+  }
+}
+function renderOnce(){
+  const br = $("#brands");
+  BRANDS.forEach(n => br.appendChild(el("li", null, n)));
+  const pr = $("#press");
+  PRESS.forEach(([n, u]) => pr.appendChild(link(u, n)));
+  $("#v-phone").textContent = CONTACT.phone;
+  $("#v-email").textContent = CONTACT.email;
+  $("#map-link").href = CONTACT.map;
+  $("#copy-phone").addEventListener("click", e => copyText(CONTACT.phone, $("#v-phone"), e.currentTarget, lang));
+  $("#copy-email").addEventListener("click", e => copyText(CONTACT.email, $("#v-email"), e.currentTarget, lang));
+}
+
+function applyLang(){
+  document.documentElement.lang = lang;
+  const t = T(lang);
+  document.querySelectorAll("[data-t]").forEach(n => { n.textContent = t[n.dataset.t]; });
+  document.querySelectorAll("[data-h]").forEach(n => { n.innerHTML = t[n.dataset.h]; });
+  input.placeholder = t.placeholder;
+  input.setAttribute("aria-label", t.ask_label);
+  sendBtn.setAttribute("aria-label", t.send);
+  $("#wa-link").href = waURL(lang);
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  renderServices(); renderStats(); renderBuilds(); renderSteps(); renderMarquee();
+  if(!lastChips) renderChips();
+  updateSound();
+}
+
+/* ================= voice ================= */
+const speechOK = "speechSynthesis" in window;
+let soundOn = false;
+function voiceFor(code){
+  try{ return speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(code)) || null; }catch(e){ return null; }
+}
+function speak(text, l){
+  if(!speechOK) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/\n—\s*/g, ". "));
+    u.lang = l === "ru" ? "ru-RU" : "en-GB";
+    const v = voiceFor(l);
+    if(v) u.voice = v;
+    u.rate = 1.0; u.pitch = 1.04;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function updateSound(){
+  soundBtn.hidden = !speechOK;
+  soundBtn.setAttribute("aria-pressed", String(soundOn));
+  $("#sound-label").textContent = soundOn ? T(lang).sound_on : T(lang).sound_off;
+  $("#wave").style.opacity = soundOn ? "1" : ".25";
+}
+soundBtn.addEventListener("click", () => {
+  soundOn = !soundOn;
+  if(!soundOn && speechOK){ try{ speechSynthesis.cancel(); }catch(e){} }
+  updateSound();
+});
+
+/* ================= local answer engine ================= */
+function norm(s){ return (" " + String(s).toLowerCase().replace(/ё/g,"е").replace(/[!?.,;:()«»"“”]/g," ").replace(/\s+/g," ").trim() + " "); }
+const GREET = /^ (привет|здравствуй|здравствуйте|добрый (день|вечер)|доброе утро|hello|hi|hey|good (morning|afternoon|evening))( |$)/;
+const THANKS = /(спасибо|благодарю|thank you|thanks|thx)/;
+KB.forEach(e => { e._k = e.keywords.map(k => k.toLowerCase().replace(/ё/g,"е")); });
+
+function findAnswer(q){
+  const t = norm(q);
+  if(GREET.test(t) && t.length < 32) return {special:"greet"};
+  if(THANKS.test(t) && t.length < 44) return {special:"thanks"};
+  /* topic entries beat generic ones (price, timing, booking); a generic match still triggers the contact hand-off */
+  let best = null, bs = 0, gen = null, gs = 0;
+  for(const e of KB){
+    let s = 0;
+    for(const k of e._k){ if(t.includes(k)) s += 2 + Math.min(k.trim().length, 8); }
+    if(e.generic){ if(s > gs){ gs = s; gen = e; } }
+    else if(s > bs){ bs = s; best = e; }
+  }
+  const genHandoff = gs >= 4 && !!gen.handoff;
+  if(bs >= 4) return {entry:best, handoff:genHandoff};
+  if(gs >= 4) return {entry:gen, handoff:genHandoff};
+  return null;
+}
+function detectLang(q){
+  if(/[а-яё]/i.test(q)) return "ru";
+  if(/[a-z]/i.test(q)) return "en";
+  return lang;
+}
+
+/* ================= live Claude (sample capability) ================= */
+let sample = null, liveOK = true;
+if(window.claude && typeof window.claude.use === "function"){
+  window.claude.use("sample").then(fn => { sample = fn || null; }).catch(() => {});
+}
+const FACTS = KB.filter(e => !e.meta).map(e => "- " + e.q_en + " " + e.a_en.replace(/\n/g," ")).join("\n") +
+  "\n- Contacts: phone and WhatsApp " + CONTACT.phone + "; email " + CONTACT.email +
+  "; Instagram @1metagarage and @metagarage_m_monogram; address Community 364, Street 9A, Al Quoz Industrial Area 1, Dubai; open Monday to Saturday 9:00-20:00, Sunday closed; visits by appointment; the team answers within 24 hours on business days.";
+const RULES =
+  "You are \"Polina\", the AI concierge of MetaGarage, a premium car atelier in Dubai led by Polina (Pauline) Gashkova. " +
+  "You chat on the MetaGarage website with owners of luxury cars.\n\n" +
+  "How to answer:\n" +
+  "- Reply in the language of the client's latest message: Russian if they write in Russian, English otherwise; if they use another language, answer in it. In Russian address the client formally (\"вы\").\n" +
+  "- Use only the FACTS below. Never invent prices, discounts, timelines, cars in stock, warranties or technical figures. If something is not in the FACTS, say the team will confirm it and offer the contact.\n" +
+  "- 2 to 5 short sentences. Plain text only: no markdown, no headings, no bullet lists, no emoji.\n" +
+  "- Warm, confident and discreet, like a concierge at a luxury atelier. No hard selling.\n" +
+  "- When the client asks about price, booking, buying a car or a specific job, ask for the car model and year and what they want done, and suggest WhatsApp or a call at " + CONTACT.phone + ".\n" +
+  "- If asked whether you are human: you are Polina's AI assistant; the team and Polina herself take over for the deal.\n" +
+  "- Do not discuss competitors. If the question has nothing to do with cars or MetaGarage, steer back politely in one sentence.\n\n" +
+  "FACTS:\n" + FACTS;
+const PERMANENT = ["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed","session_expired"];
+
+function clean(t){
+  return String(t)
+    .replace(/```[\s\S]*?```/g, m => m.replace(/```\w*\n?/g, ""))
+    .replace(/^#{1,6}\s*/gm, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/(^|[\s(])\*(?!\s)([^*\n]+?)\*(?=[\s.,;:!?)]|$)/g, "$1$2")
+    .replace(/^\s*[*•-]\s+/gm, "— ")
+    .replace(/`([^`\n]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, "$1")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+const history = [];
+function remember(q, a){
+  history.push({role:"user", content:q}, {role:"assistant", content:a});
+  if(history.length > 12) history.splice(0, history.length - 12);
+}
+async function askLive(q, ql, makeBubble){
+  if(!sample || !liveOK) return null;
+  const turns = [{role:"user", content:RULES}].concat(history, [{role:"user", content:q}]);
+  let body = null;
+  try{
+    const r = await sample(turns, {
+      modelTier:"quick", cache:false,
+      onText: ({text}) => { if(!body) body = makeBubble(); body.textContent = clean(text); scrollLog(); }
+    });
+    if(!body) body = makeBubble();
+    return {text:clean(r.text), body};
+  }catch(e){
+    const code = e && e.code;
+    if(PERMANENT.includes(code)) liveOK = false;
+    if(body && e && e.text) return {text:clean(e.text), body};
+    if(body) body.parentNode.remove();
+    return null;
+  }
+}
+
+/* ================= chat ================= */
+function scrollLog(){ logEl.scrollTop = logEl.scrollHeight; }
+function scrollToTalk(){ talk.scrollIntoView({behavior: reduced ? "auto" : "smooth", block:"start"}); }
+let greeted = false;
+function goLive(){
+  if(talk.classList.contains("live")) return;
+  talk.classList.add("live");
+  if(!greeted){
+    greeted = true;
+    const m = el("div","msg ai");
+    m.appendChild(el("span","who", T(lang).who_ai));
+    m.appendChild(el("span","body", T(lang).greeting));
+    logEl.appendChild(m);
+  }
+}
+function addUser(text){
+  goLive();
+  logEl.appendChild(el("div","msg user", text));
+  scrollLog();
+}
+function aiBubble(ql){
+  goLive();
+  const m = el("div","msg ai");
+  m.appendChild(el("span","who", T(ql).who_ai));
+  const body = el("span","body");
+  m.appendChild(body);
+  logEl.appendChild(m);
+  medal.classList.add("speaking");
+  scrollLog();
+  return body;
+}
+function finishAI(body, text, ql){
+  body.textContent = text;
+  medal.classList.remove("speaking");
+  if(speechOK){
+    const b = el("button","say");
+    b.type = "button";
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg>';
+    b.appendChild(document.createTextNode(T(ql).listen));
+    b.addEventListener("click", () => speak(text, ql));
+    body.parentNode.appendChild(document.createElement("br"));
+    body.parentNode.appendChild(b);
+  }
+  scrollLog();
+  if(soundOn) speak(text, ql);
+}
+function typeAI(text, ql){
+  return new Promise(res => {
+    const body = aiBubble(ql);
+    if(reduced){ finishAI(body, text, ql); res(); return; }
+    let i = 0;
+    (function step(){
+      i = Math.min(text.length, i + 3);
+      body.textContent = text.slice(0, i);
+      scrollLog();
+      if(i < text.length) setTimeout(step, 14);
+      else { finishAI(body, text, ql); res(); }
+    })();
+  });
+}
+function showTyping(){
+  goLive();
+  const m = el("div","msg ai");
+  const t = el("span","typing");
+  t.append(el("i"), el("i"), el("i"));
+  m.appendChild(t);
+  logEl.appendChild(m);
+  scrollLog();
+  return m;
+}
+function contactCard(ql, q){
+  const t = T(ql);
+  const m = el("div","msg ai contact");
+  m.appendChild(el("span","who", t.who_team));
+  m.appendChild(el("span","body", t.contact_intro));
+  const cc = el("div","cc");
+  const row = el("div","cc-row");
+  row.appendChild(el("span","cc-label", t.contact_label));
+  const v = el("span","cc-val", CONTACT.phone);
+  row.appendChild(v);
+  const cb = el("button","btn-sm", t.copy);
+  cb.type = "button";
+  cb.addEventListener("click", () => copyText(CONTACT.phone, v, cb, ql));
+  row.appendChild(cb);
+  cc.appendChild(row);
+  const links = el("div","cc-links");
+  links.appendChild(link(waURL(ql, q), "WhatsApp", "btn-sm btn-gold"));
+  links.appendChild(link(CONTACT.ig, "Instagram", "btn-sm"));
+  links.appendChild(link(CONTACT.map, t.map_short, "btn-sm"));
+  cc.appendChild(links);
+  const er = el("div","cc-row");
+  er.appendChild(el("span","cc-label", t.email_label));
+  er.appendChild(el("span","cc-val", CONTACT.email));
+  cc.appendChild(er);
+  m.appendChild(cc);
+  logEl.appendChild(m);
+  scrollLog();
+}
+
+let lastChips = null;
+function renderChips(list){
+  lastChips = list || null;
+  chipsBox.textContent = "";
+  const t = T(lang);
+  const items = list || t.chips.map(([label, hint]) => ({label, hint})).concat([{label:t.curiosity, forceId:"meta-polina", alt:true}]);
+  items.forEach(c => {
+    const b = el("button","chip" + (c.alt ? " alt" : ""), c.label);
+    b.type = "button";
+    b.addEventListener("click", () => chipAsk(c.label, c.forceId, c.hint));
+    chipsBox.appendChild(b);
+  });
+}
+function relatedChips(entry, ql){
+  if(!entry || !entry.related) return null;
+  return entry.related.map(id => KB.find(e => e.id === id)).filter(Boolean)
+    .map(e => ({label: ql === "ru" ? e.q_ru : e.q_en, forceId: e.id}));
+}
+function askFrom(id){
+  const e = KB.find(x => x.id === id);
+  if(!e) return;
+  scrollToTalk();
+  chipAsk(lang === "ru" ? e.q_ru : e.q_en, id);
+}
+let chipTyping = false;
+/* forceId answers from the curated base only; hint picks the fallback entry but still lets live Claude answer */
+function chipAsk(q, forceId, hint){
+  if(busy || chipTyping) return;
+  if(reduced){ ask(q, forceId, hint); return; }
+  chipTyping = true;
+  input.value = "";
+  let i = 0;
+  (function step(){
+    i++;
+    input.value = q.slice(0, i);
+    if(i < q.length) setTimeout(step, 18);
+    else setTimeout(() => { chipTyping = false; ask(q, forceId, hint); }, 140);
+  })();
+}
+const wait = ms => new Promise(r => setTimeout(r, ms));
+let busy = false;
+async function ask(raw, forceId, hint){
+  const q = (raw || "").trim();
+  if(busy || !q) return;
+  busy = true; sendBtn.disabled = true;
+  addUser(q);
+  input.value = "";
+  const ql = detectLang(q);
+  const pinned = forceId || hint;
+  const res = pinned ? {entry: KB.find(e => e.id === pinned)} : findAnswer(q);
+  const entry = res && res.entry ? res.entry : null;
+  const wantsTeam = !!((entry && entry.handoff) || (res && res.handoff));
+  const typing = showTyping();
+
+  let live = null;
+  if(!forceId && !(res && res.special)){
+    live = await askLive(q, ql, () => { typing.remove(); return aiBubble(ql); });
+  }
+  if(live){
+    typing.remove();
+    finishAI(live.body, live.text, ql);
+    remember(q, live.text);
+    if(wantsTeam || live.text.includes("507 7707")) contactCard(ql, q);
+  }else{
+    await wait(reduced ? 60 : 520);
+    typing.remove();
+    let text, handoff = false;
+    if(res && res.special === "greet") text = T(ql).greet_reply;
+    else if(res && res.special === "thanks") text = T(ql).thanks;
+    else if(entry){ text = ql === "ru" ? entry.a_ru : entry.a_en; handoff = wantsTeam; }
+    else { text = T(ql).fallback; handoff = true; }
+    await typeAI(text, ql);
+    remember(q, text);
+    if(handoff) contactCard(ql, q);
+  }
+  renderChips(relatedChips(entry, ql));
+  busy = false; sendBtn.disabled = false;
+}
+
+$("#ask-form").addEventListener("submit", e => { e.preventDefault(); ask(input.value); });
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
+  if(b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  saveLang(lang);
+  lastChips = null;
+  applyLang();
+}));
+
+renderOnce();
+applyLang();
+})();
+</script>
